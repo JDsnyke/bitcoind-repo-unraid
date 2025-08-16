@@ -1,0 +1,59 @@
+# Bitcoin Core Configuration Template
+# Copy this file to /mnt/user/appdata/umbrel-bitcoin/bitcoin.conf and customize as needed
+
+# Network Configuration
+network=mainnet
+# network=testnet
+# network=regtest
+
+# RPC Configuration
+rpcuser=umbrel
+rpcpassword=changeme
+rpcbind=0.0.0.0
+rpcallowip=0.0.0.0/0
+rpcport=8332
+rpcworkqueue=16
+
+# P2P Configuration
+port=8333
+listen=1
+listenonion=1
+maxconnections=125
+maxuploadtarget=5000
+
+# Wallet Configuration
+disablewallet=1
+# disablewallet=0  # Enable if you want wallet functionality
+
+# Indexing Configuration
+txindex=1
+blockfilterindex=1
+coinstatsindex=1
+
+# Pruning Configuration
+# prune=0  # No pruning (full node)
+# prune=550  # Prune to 550MB (minimum)
+# prune=1000  # Prune to 1GB
+
+# Performance Configuration
+dbcache=450
+maxmempool=300
+mempoolexpiry=336
+par=0
+
+# Logging Configuration
+debug=rpc
+debug=net
+debug=tor
+logips=1
+
+# Security Configuration
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+# rpcbind=0.0.0.0  # Only enable if you need external RPC access
+# rpcallowip=192.168.1.0/24  # Restrict to specific network
+
+# Additional Options
+assumevalid=0
+checkblocks=6
+checklevel=3

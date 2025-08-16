@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  umbrel-lightning:
+    build: .
+    container_name: umbrel-lightning
+    ports:
+      - "3000:3000"  # Web interface
+      - "9735:9735"  # Lightning P2P
+      - "8080:8080"  # REST API
+    environment:
+      - LIGHTNING_NETWORK=bitcoin
+      - LIGHTNING_BITCOIN_RPC_HOST=umbrel-bitcoin
+      - LIGHTNING_BITCOIN_RPC_PORT=8332
+      - LIGHTNING_BITCOIN_RPC_USER=umbrel
+      - LIGHTNING_BITCOIN_RPC_PASSWORD=changeme
+      - LIGHTNING_BITCOIN_RPC_PROTOCOL=http
+      - LIGHTNING_ALIAS=Umbrel Lightning
+      - LIGHTNING_COLOR=3399FF
+      - LIGHTNING_WEB_PORT=3000
+      - LIGHTNING_P2P_PORT=9735
+      - LIGHTNING_REST_PORT=8080
+      - LIGHTNING_LOG_LEVEL=info
+    volumes:
+      - ./data:/home/lightning/.lightning
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-lightning:/home/lightning/.lightning
+    networks:
+      - umbrel-network
+    depends_on:
+      - umbrel-bitcoin
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+  # Optional Bitcoin node for testing (comment out if using external Bitcoin node)
+  umbrel-bitcoin:
+    image: getumbrel/bitcoin:latest
+    container_name: umbrel-bitcoin
+    ports:
+      - "8332:8332"  # RPC
+      - "8333:8333"  # P2P
+      - "18332:18332"  # testnet RPC
+      - "18333:18333"  # testnet P2P
+    environment:
+      - BITCOIN_NETWORK=bitcoin
+      - BITCOIN_RPC_USER=umbrel
+      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_BIND=0.0.0.0:8332
+      - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
+      - BITCOIN_DISABLE_WALLET=0
+      - BITCOIN_TXINDEX=1
+      - BITCOIN_BLOCKFILTERINDEX=1
+      - BITCOIN_PRUNING=0
+    volumes:
+      - ./bitcoin-data:/home/umbrel/.bitcoin
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin
+    networks:
+      - umbrel-network
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+networks:
+  umbrel-network:
+    driver: bridge
+
+volumes:
+  data:
+  bitcoin-data:

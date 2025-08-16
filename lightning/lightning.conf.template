@@ -1,0 +1,85 @@
+# Umbrel Lightning Configuration Template
+# Copy this file to lightning.conf and modify as needed
+
+# Network Configuration
+network=bitcoin
+# Alternative networks: testnet, regtest
+
+# Bitcoin Core Connection
+bitcoin-rpc-host=umbrel-bitcoin
+bitcoin-rpc-port=8332
+bitcoin-rpc-user=umbrel
+bitcoin-rpc-password=changeme
+bitcoin-rpc-protocol=http
+
+# Lightning Node Settings
+alias=Umbrel Lightning
+color=3399FF
+log-level=info
+
+# Port Configuration
+web-port=3000
+p2p-port=9735
+rest-port=8080
+
+# Data Directory
+lightning-dir=/home/lightning/.lightning
+
+# Wallet Settings
+wallet-dir=/home/lightning/.lightning/wallets
+
+# Channel Settings
+max-concurrent-htlcs=483
+htlc-minimum-msat=1
+htlc-maximum-msat=50000000000
+
+# Fee Settings
+fee-base=1
+fee-per-satoshi=1
+
+# Routing Settings
+max-channel-size=16777215
+min-channel-size=1000
+
+# Logging Configuration
+log-file=/home/lightning/.lightning/lightning.log
+log-level=info
+
+# Plugin Settings
+plugin=/usr/local/bin/plugins/autoclean
+autoclean-cycle=60
+autoclean-expired-by=60
+
+# Network Settings
+bind-addr=0.0.0.0:9735
+announce-addr=0.0.0.0:9735
+
+# RPC Settings
+rpc-file=/home/lightning/.lightning/lightning-rpc
+
+# Database Settings
+wallet-db=/home/lightning/.lightning/wallets/wallet.db
+
+# Security Settings
+disable-dns=false
+disable-ip-discovery=false
+
+# Performance Settings
+max-concurrent-htlcs=483
+max-htlc-value-in-flight-msat=50000000000
+
+# Monitoring
+monitoring-port=8080
+monitoring-addr=0.0.0.0:8080
+
+# Web Interface
+web-port=3000
+web-addr=0.0.0.0:3000
+
+# REST API
+rest-port=8080
+rest-addr=0.0.0.0:8080
+
+# Development/Testing (uncomment for testnet/regtest)
+# dev-allowdustreserve=true
+# dev-ignore-fee-limits=true

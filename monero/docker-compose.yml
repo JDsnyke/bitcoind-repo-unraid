@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  umbrel-monero:
+    build: .
+    container_name: umbrel-monero
+    ports:
+      - "18089:18089"  # RPC
+      - "18090:18090"  # P2P
+      - "18091:18091"  # ZMQ RPC
+      - "18092:18092"  # ZMQ PUB
+    environment:
+      - MONERO_NETWORK=mainnet
+      - MONERO_RPC_BIND_IP=0.0.0.0
+      - MONERO_RPC_BIND_PORT=18089
+      - MONERO_P2P_BIND_IP=0.0.0.0
+      - MONERO_P2P_BIND_PORT=18090
+      - MONERO_ZMQ_RPC_BIND_IP=0.0.0.0
+      - MONERO_ZMQ_RPC_BIND_PORT=18091
+      - MONERO_ZMQ_PUB_BIND_IP=0.0.0.0
+      - MONERO_ZMQ_PUB_BIND_PORT=18092
+      - MONERO_RPC_LOGIN=monero:changeme
+      - MONERO_RESTRICTED_RPC=1
+      - MONERO_DISABLE_RPC_LOGIN=0
+      - MONERO_SYNC_MODE=fast
+      - MONERO_PRUNING=0
+      - MONERO_DB_SALVAGE=0
+      - MONERO_MAX_CONCURRENCY=0
+      - MONERO_PREPARE_MULTISIG=0
+      - MONERO_OFFLINE=0
+      - MONERO_DATA_DIR=/home/monero/.bitmonero
+      - MONERO_LOG_LEVEL=1
+    volumes:
+      - ./data:/home/monero/.bitmonero
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-monero:/home/monero/.bitmonero
+    networks:
+      - monero-network
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+networks:
+  monero-network:
+    driver: bridge
+
+volumes:
+  data:

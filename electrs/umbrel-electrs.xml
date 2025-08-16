@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Umbrel Electrs</Name>
+  <Repository>getumbrel/electrs:latest</Repository>
+  <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/electrs</Registry>
+  <BaseImage>rust:1.70-slim</BaseImage>
+  <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Icon>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
+  <Project>https://github.com/getumbrel/umbrel-apps</Project>
+  <Overview>Umbrel Electrs is a fast, lightweight Bitcoin Electrum server implementation written in Rust. It provides Electrum protocol support for Bitcoin wallets and applications.</Overview>
+  <Category>Blockchain</Category>
+  <Description>Umbrel Electrs is a fast, lightweight Bitcoin Electrum server implementation written in Rust. This provides you with:
+
+- Fast Electrum protocol support
+- Lightweight resource usage
+- Rust-based performance optimization
+- Compatible with Electrum wallets
+- Index-based transaction queries
+
+⚠️ IMPORTANT: This app requires a Bitcoin Core node to function. Install the Umbrel Bitcoin app first.
+
+The app runs Electrs in a Docker container with optimized settings for home servers and connects to your Bitcoin node for blockchain data.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>3000</HostPort>
+        <ContainerPort>3000</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>50001</HostPort>
+        <ContainerPort>50001</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>50002</HostPort>
+        <ContainerPort>50002</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-electrs</HostDir>
+      <ContainerDir>/home/electrs/.electrs</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Name>ELECTRS_NETWORK</Name>
+      <Value>bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin network (bitcoin, testnet, or regtest)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_DAEMON_RPC_ADDR</Name>
+      <Value>umbrel-bitcoin:8332</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC address (use 'umbrel-bitcoin:8332' for container networking)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_DAEMON_RPC_USER</Name>
+      <Value>umbrel</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC username (must match Bitcoin node)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_DAEMON_RPC_PASS</Name>
+      <Value>changeme</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC password (must match Bitcoin node - CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_DAEMON_P2P_ADDR</Name>
+      <Value>umbrel-bitcoin:8333</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core P2P address (use 'umbrel-bitcoin:8333' for container networking)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_ELECTRUM_RPC_ADDR</Name>
+      <Value>0.0.0.0:50001</Value>
+      <Mode>rw</Mode>
+      <Description>Electrum RPC bind address</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_ELECTRUM_RPC_ADDR_INDEX</Name>
+      <Value>0.0.0.0:50002</Value>
+      <Mode>rw</Mode>
+      <Description>Electrum index RPC bind address</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_HTTP_ADDR</Name>
+      <Value>0.0.0.0:3000</Value>
+      <Mode>rw</Mode>
+      <Description>HTTP API bind address</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_VERBOSITY</Name>
+      <Value>4</Value>
+      <Mode>rw</Mode>
+      <Description>Logging verbosity (0-5)</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_MONITORING_ADDR</Name>
+      <Value>0.0.0.0:4224</Value>
+      <Mode>rw</Mode>
+      <Description>Prometheus monitoring bind address</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_DB_DIR</Name>
+      <Value>/home/electrs/.electrs/db</Value>
+      <Mode>rw</Mode>
+      <Description>Database directory path</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_INDEX_BATCH_SIZE</Name>
+      <Value>10</Value>
+      <Mode>rw</Mode>
+      <Description>Index batch size for processing</Description>
+    </Variable>
+    <Variable>
+      <Name>ELECTRS_INDEX_LIMIT</Name>
+      <Value>1000</Value>
+      <Mode>rw</Mode>
+      <Description>Index limit for queries</Description>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Key>com.unraid.docker.managed</Key>
+      <Value>dman</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.webui</Key>
+      <Value>http://[IP]:[PORT:3000]</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.icon</Key>
+      <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Value>
+    </Label>
+  </Labels>
+  <PostArgs>--network ${ELECTRS_NETWORK} --daemon-rpc-addr ${ELECTRS_DAEMON_RPC_ADDR} --daemon-rpc-user ${ELECTRS_DAEMON_RPC_USER} --daemon-rpc-pass ${ELECTRS_DAEMON_RPC_PASS} --daemon-p2p-addr ${ELECTRS_DAEMON_P2P_ADDR} --electrum-rpc-addr ${ELECTRS_ELECTRUM_RPC_ADDR} --electrum-rpc-addr-index ${ELECTRS_ELECTRUM_RPC_ADDR_INDEX} --http-addr ${ELECTRS_HTTP_ADDR} --verbosity ${ELECTRS_VERBOSITY} --monitoring-addr ${ELECTRS_MONITORING_ADDR} --db-dir ${ELECTRS_DB_DIR} --index-batch-size ${ELECTRS_INDEX_BATCH_SIZE} --index-limit ${ELECTRS_INDEX_LIMIT}</PostArgs>
+</Container>

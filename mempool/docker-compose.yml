@@ -1,0 +1,133 @@
+version: '3.8'
+
+services:
+  umbrel-mempool:
+    build: .
+    container_name: umbrel-mempool
+    ports:
+      - "3000:3000"  # Web interface
+      - "8999:8999"  # REST API
+    environment:
+      - MEMPOOL_NETWORK=mainnet
+      - MEMPOOL_BITCOIN_HOST=umbrel-bitcoin
+      - MEMPOOL_BITCOIN_PORT=8332
+      - MEMPOOL_BITCOIN_USERNAME=umbrel
+      - MEMPOOL_BITCOIN_PASSWORD=changeme
+      - MEMPOOL_BITCOIN_P2P_HOST=umbrel-bitcoin
+      - MEMPOOL_BITCOIN_P2P_PORT=8333
+      - MEMPOOL_BITCOIN_DATA_DIR=/mnt/user/appdata/umbrel-bitcoin/.bitcoin
+      - MEMPOOL_MYSQL_HOST=umbrel-mempool-db
+      - MEMPOOL_MYSQL_PORT=3306
+      - MEMPOOL_MYSQL_DATABASE=mempool
+      - MEMPOOL_MYSQL_USERNAME=mempool
+      - MEMPOOL_MYSQL_PASSWORD=changeme
+      - MEMPOOL_HTTP_PORT=3000
+      - MEMPOOL_API_PORT=8999
+      - MEMPOOL_ENABLE_ELECTRS=true
+      - MEMPOOL_ELECTRS_HOST=umbrel-electrs
+      - MEMPOOL_ELECTRS_PORT=50001
+    volumes:
+      - ./data:/app/mempool
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-mempool:/app/mempool
+    networks:
+      - umbrel-network
+    depends_on:
+      - umbrel-bitcoin
+      - umbrel-mempool-db
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+  # MySQL database for Mempool
+  umbrel-mempool-db:
+    image: mysql:8.0
+    container_name: umbrel-mempool-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mempool
+      - MYSQL_USER=mempool
+      - MYSQL_PASSWORD=changeme
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-mempool-mysql:/var/lib/mysql
+    networks:
+      - umbrel-network
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+  # Optional Bitcoin node for testing (comment out if using external Bitcoin node)
+  umbrel-bitcoin:
+    image: getumbrel/bitcoin:latest
+    container_name: umbrel-bitcoin
+    ports:
+      - "8332:8332"  # RPC
+      - "8333:8333"  # P2P
+      - "18332:18332"  # testnet RPC
+      - "18333:18333"  # testnet P2P
+    environment:
+      - BITCOIN_NETWORK=bitcoin
+      - BITCOIN_RPC_USER=umbrel
+      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_BIND=0.0.0.0:8332
+      - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
+      - BITCOIN_DISABLE_WALLET=0
+      - BITCOIN_TXINDEX=1
+      - BITCOIN_BLOCKFILTERINDEX=1
+      - BITCOIN_PRUNING=0
+    volumes:
+      - ./bitcoin-data:/home/umbrel/.bitcoin
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin
+    networks:
+      - umbrel-network
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+  # Optional Electrs for testing (comment out if using external Electrs)
+  umbrel-electrs:
+    image: getumbrel/electrs:latest
+    container_name: umbrel-electrs
+    ports:
+      - "3001:3000"  # HTTP API (different port to avoid conflict)
+      - "50001:50001"  # Electrum RPC
+      - "50002:50002"  # Electrum Index
+      - "4224:4224"  # Monitoring
+    environment:
+      - ELECTRS_NETWORK=bitcoin
+      - ELECTRS_DAEMON_RPC_ADDR=umbrel-bitcoin:8332
+      - ELECTRS_DAEMON_RPC_USER=umbrel
+      - ELECTRS_DAEMON_RPC_PASS=changeme
+      - ELECTRS_DAEMON_P2P_ADDR=umbrel-bitcoin:8333
+      - ELECTRS_ELECTRUM_RPC_ADDR=0.0.0.0:50001
+      - ELECTRS_ELECTRUM_RPC_ADDR_INDEX=0.0.0.0:50002
+      - ELECTRS_HTTP_ADDR=0.0.0.0:3000
+      - ELECTRS_VERBOSITY=info
+      - ELECTRS_MONITORING_ADDR=0.0.0.0:4224
+      - ELECTRS_DB_DIR=/home/electrs/.electrs
+      - ELECTRS_INDEX_BATCH_SIZE=10
+      - ELECTRS_INDEX_LIMIT=1000
+    volumes:
+      - ./electrs-data:/home/electrs/.electrs
+      # Unraid-specific volume mapping (commented out for local testing)
+      # - /mnt/user/appdata/umbrel-electrs:/home/electrs/.electrs
+    networks:
+      - umbrel-network
+    depends_on:
+      - umbrel-bitcoin
+    restart: unless-stopped
+    user: "1000:1000"  # nobody:users equivalent for Unraid
+    # Alternative for Unraid: user: "99:100"
+
+networks:
+  umbrel-network:
+    driver: bridge
+
+volumes:
+  data:
+  mysql-data:
+  bitcoin-data:
+  electrs-data:

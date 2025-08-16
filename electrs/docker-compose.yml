@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  umbrel-electrs:
+    build: .
+    container_name: umbrel-electrs
+    restart: unless-stopped
+    ports:
+      - "3000:3000"    # HTTP API
+      - "50001:50001"  # Electrum RPC
+      - "50002:50002"  # Electrum Index RPC
+      - "4224:4224"    # Prometheus monitoring
+    environment:
+      - ELECTRS_NETWORK=bitcoin
+      - ELECTRS_DAEMON_RPC_ADDR=umbrel-bitcoin:8332
+      - ELECTRS_DAEMON_RPC_USER=umbrel
+      - ELECTRS_DAEMON_RPC_PASS=changeme
+      - ELECTRS_DAEMON_P2P_ADDR=umbrel-bitcoin:8333
+      - ELECTRS_ELECTRUM_RPC_ADDR=0.0.0.0:50001
+      - ELECTRS_ELECTRUM_RPC_ADDR_INDEX=0.0.0.0:50002
+      - ELECTRS_HTTP_ADDR=0.0.0.0:3000
+      - ELECTRS_VERBOSITY=4
+      - ELECTRS_MONITORING_ADDR=0.0.0.0:4224
+      - ELECTRS_DB_DIR=/home/electrs/.electrs/db
+      - ELECTRS_INDEX_BATCH_SIZE=10
+      - ELECTRS_INDEX_LIMIT=1000
+    volumes:
+      - ./data:/home/electrs/.electrs
+      # Unraid-specific volume mapping (uncomment for production use)
+      # - /mnt/user/appdata/umbrel-electrs:/home/electrs/.electrs
+    networks:
+      - electrs-network
+    depends_on:
+      - umbrel-bitcoin  # Bitcoin container dependency
+    user: "1000:1000"  # Unraid nobody:users equivalent
+    # Alternative user mapping for Unraid
+    # user: "99:100"  # nobody:users on Unraid
+
+  # Bitcoin node container for testing
+  umbrel-bitcoin:
+    image: getumbrel/bitcoin:latest
+    container_name: umbrel-bitcoin
+    restart: unless-stopped
+    ports:
+      - "8332:8332"  # Bitcoin RPC
+      - "8333:8333"  # Bitcoin P2P
+    environment:
+      - BITCOIN_NETWORK=mainnet
+      - BITCOIN_RPC_USER=umbrel
+      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_BIND=0.0.0.0
+      - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
+      - BITCOIN_DISABLE_WALLET=1
+      - BITCOIN_TXINDEX=1
+      - BITCOIN_BLOCKFILTERINDEX=1
+      - BITCOIN_PRUNING=0
+    volumes:
+      - ./bitcoin-data:/home/umbrel/.bitcoin
+      # Unraid-specific volume mapping (uncomment for production use)
+      # - /mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin
+    networks:
+      - electrs-network
+    user: "1000:1000"  # Unraid nobody:users equivalent
+    # Alternative user mapping for Unraid
+    # user: "99:100"  # nobody:users on Unraid
+
+networks:
+  electrs-network:
+    driver: bridge

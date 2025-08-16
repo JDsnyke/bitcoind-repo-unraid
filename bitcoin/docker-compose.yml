@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  umbrel-bitcoin:
+    build: .
+    container_name: umbrel-bitcoin
+    restart: unless-stopped
+    ports:
+      - "8332:8332"  # Bitcoin RPC (mainnet)
+      - "8333:8333"  # Bitcoin P2P (mainnet)
+      - "18332:18332"  # Bitcoin RPC (testnet)
+      - "18333:18333"  # Bitcoin P2P (testnet)
+    environment:
+      - BITCOIN_NETWORK=mainnet
+      - BITCOIN_RPC_USER=umbrel
+      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_BIND=0.0.0.0
+      - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
+      - BITCOIN_DISABLE_WALLET=1
+      - BITCOIN_TXINDEX=1
+      - BITCOIN_BLOCKFILTERINDEX=1
+      - BITCOIN_PRUNING=0
+    volumes:
+      - ./data:/home/umbrel/.bitcoin
+      # Unraid-specific volume mapping (uncomment for production use)
+      # - /mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin
+    networks:
+      - bitcoin-network
+    user: "1000:1000"  # Unraid nobody:users equivalent
+    # Alternative user mapping for Unraid
+    # user: "99:100"  # nobody:users on Unraid
+
+networks:
+  bitcoin-network:
+    driver: bridge

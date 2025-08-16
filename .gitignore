@@ -1,0 +1,114 @@
+# Unraid-specific directories and files
+/mnt/user/appdata/
+/mnt/user/domains/
+/mnt/user/isos/
+/mnt/user/system/
+/boot/config/plugins/
+/boot/config/domains.cfg
+/boot/config/network.cfg
+/boot/config/ident.cfg
+/boot/config/super.dat
+/boot/config/UnraidOS-*
+/boot/config/go
+/boot/config/plugins/dockerMan/
+/boot/config/plugins/dockerMan/templates-user/
+/boot/config/plugins/dockerMan/templates/
+/boot/config/plugins/dockerMan/docker.img
+/boot/config/plugins/dockerMan/libvirt.img
+
+# App-specific data directories
+umbrel-bitcoin/
+umbrel-electrs/
+data/
+bitcoin-data/
+electrs-data/
+
+# Unraid Docker data
+/var/lib/docker/
+/var/lib/docker/containers/
+/var/lib/docker/volumes/
+/var/lib/docker/networks/
+
+# Unraid system files
+/var/log/
+/var/cache/
+/tmp/
+/var/tmp/
+
+# Data directories (relative paths)
+data/
+/mnt/user/appdata/umbrel-bitcoin/
+/mnt/user/appdata/umbrel-electrs/
+
+# Logs
+*.log
+logs/
+/var/log/
+/var/log/syslog
+/var/log/dmesg
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.unraid
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+docker-compose.prod.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+.fuse_hidden*
+.nfs*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Bitcoin Core data (if testing locally)
+.bitcoin/
+bitcoin.conf
+electrs.conf
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+target/
+
+# Unraid specific
+*.img
+*.qcow2
+*.vmdk
+*.vdi
+*.ovf
+
+# Configuration backups
+*.conf.bak
+*.xml.bak
+*.cfg.bak
+
+# Unraid plugin files
+*.plg
+*.txz
+*.tgz
+
+# Cache and temporary
+.cache/
+.tmp/
+temp/

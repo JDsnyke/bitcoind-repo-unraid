@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Umbrel Bitcoin</Name>
+  <Repository>getumbrel/bitcoin:latest</Repository>
+  <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/bitcoin</Registry>
+  <BaseImage>ubuntu:22.04</BaseImage>
+  <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/bitcoin/icon.png</Icon>
+  <WebUI>http://[IP]:[PORT:8332]</WebUI>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
+  <Project>https://github.com/getumbrel/umbrel-apps</Project>
+  <Overview>Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment. It provides a full Bitcoin node with RPC access and block validation capabilities.</Overview>
+  <Category>Blockchain</Category>
+  <Description>Umbrel Bitcoin is a Bitcoin Core node that allows you to run your own Bitcoin node. This provides you with:
+
+- Full Bitcoin blockchain validation
+- RPC access for Bitcoin applications
+- Enhanced privacy and security
+- Support for the Bitcoin network
+- Integration with Umbrel Electrs for wallet connectivity
+
+The app runs Bitcoin Core in a Docker container with optimized settings for home servers. Install this first before installing the Umbrel Electrs app.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8332</HostPort>
+        <ContainerPort>8332</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>8333</HostPort>
+        <ContainerPort>8333</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18332</HostPort>
+        <ContainerPort>18332</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18333</HostPort>
+        <ContainerPort>18333</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-bitcoin</HostDir>
+      <ContainerDir>/home/umbrel/.bitcoin</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Name>BITCOIN_NETWORK</Name>
+      <Value>mainnet</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin network to connect to (mainnet, testnet, or regtest)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_RPC_USER</Name>
+      <Value>umbrel</Value>
+      <Mode>rw</Mode>
+      <Description>RPC username for Bitcoin Core (used by Electrs app)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_RPC_PASSWORD</Name>
+      <Value>changeme</Value>
+      <Mode>rw</Mode>
+      <Description>RPC password for Bitcoin Core (must match Electrs app - CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_RPC_BIND</Name>
+      <Value>0.0.0.0</Value>
+      <Mode>rw</Mode>
+      <Description>RPC bind address (0.0.0.0 allows Electrs container to connect)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_RPC_ALLOW_IP</Name>
+      <Value>0.0.0.0/0</Value>
+      <Mode>rw</Mode>
+      <Description>Allowed IPs for RPC access (0.0.0.0/0 allows container network access)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_DISABLE_WALLET</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Disable wallet functionality (1=disabled, 0=enabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_TXINDEX</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Enable transaction index (1=enabled, 0=disabled) - REQUIRED for Electrs</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_BLOCKFILTERINDEX</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Enable block filter index (1=enabled, 0=disabled) - REQUIRED for Electrs</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_PRUNING</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Enable pruning (0=disabled, or size in MB)</Description>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Key>com.unraid.docker.managed</Key>
+      <Value>dman</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.webui</Key>
+      <Value>http://[IP]:[PORT:8332]</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.icon</Key>
+      <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/bitcoin/icon.png</Value>
+    </Label>
+  </Labels>
+  <PostArgs>--network=${BITCOIN_NETWORK} --rpcuser=${BITCOIN_RPC_USER} --rpcpassword=${BITCOIN_RPC_PASSWORD} --rpcbind=${BITCOIN_RPC_BIND} --rpcallowip=${BITCOIN_RPC_ALLOW_IP} --disablewallet=${BITCOIN_DISABLE_WALLET} --txindex=${BITCOIN_TXINDEX} --blockfilterindex=${BITCOIN_BLOCKFILTERINDEX} --prune=${BITCOIN_PRUNING}</PostArgs>
+</Container>

@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Umbrel Monero</Name>
+  <Repository>getumbrel/monero:latest</Repository>
+  <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/monero</Registry>
+  <BaseImage>ubuntu:22.04</BaseImage>
+  <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/monero/icon.png</Icon>
+  <WebUI>http://[IP]:[PORT:18089]</WebUI>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
+  <Project>https://github.com/getumbrel/umbrel-apps</Project>
+  <Overview>Umbrel Monero is a Monero (XMR) node implementation that provides privacy-focused cryptocurrency functionality and blockchain validation.</Overview>
+  <Category>Blockchain</Category>
+  <Description>Umbrel Monero is a Monero (XMR) node implementation that provides you with:
+
+- Full Monero blockchain validation
+- Privacy-focused cryptocurrency support
+- RPC access for Monero applications
+- Wallet functionality (optional)
+- Network participation and validation
+
+The app runs a Monero daemon in a Docker container with optimized settings for home servers. This is a standalone app that doesn't require Bitcoin.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>18089</HostPort>
+        <ContainerPort>18089</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18090</HostPort>
+        <ContainerPort>18090</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18091</HostPort>
+        <ContainerPort>18091</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18092</HostPort>
+        <ContainerPort>18092</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-monero</HostDir>
+      <ContainerDir>/home/monero/.bitmonero</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Name>MONERO_NETWORK</Name>
+      <Value>mainnet</Value>
+      <Mode>rw</Mode>
+      <Description>Monero network (mainnet, testnet, or stagenet)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_RPC_BIND_IP</Name>
+      <Value>0.0.0.0</Value>
+      <Mode>rw</Mode>
+      <Description>RPC bind IP address</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_RPC_BIND_PORT</Name>
+      <Value>18089</Value>
+      <Mode>rw</Mode>
+      <Description>RPC bind port</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_P2P_BIND_IP</Name>
+      <Value>0.0.0.0</Value>
+      <Mode>rw</Mode>
+      <Description>P2P bind IP address</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_P2P_BIND_PORT</Name>
+      <Value>18090</Value>
+      <Mode>rw</Mode>
+      <Description>P2P bind port</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_ZMQ_RPC_BIND_IP</Name>
+      <Value>0.0.0.0</Value>
+      <Mode>rw</Mode>
+      <Description>ZMQ RPC bind IP address</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_ZMQ_RPC_BIND_PORT</Name>
+      <Value>18091</Value>
+      <Mode>rw</Mode>
+      <Description>ZMQ RPC bind port</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_ZMQ_PUB_BIND_IP</Name>
+      <Value>0.0.0.0</Value>
+      <Mode>rw</Mode>
+      <Description>ZMQ PUB bind IP address</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_ZMQ_PUB_BIND_PORT</Name>
+      <Value>18092</Value>
+      <Mode>rw</Mode>
+      <Description>ZMQ PUB bind port</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_RPC_LOGIN</Name>
+      <Value>monero:changeme</Value>
+      <Mode>rw</Mode>
+      <Description>RPC login credentials (username:password - CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_RESTRICTED_RPC</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Restrict RPC access (1=enabled, 0=disabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_DISABLE_RPC_LOGIN</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Disable RPC login requirement (0=disabled, 1=enabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_SYNC_MODE</Name>
+      <Value>fast</Value>
+      <Mode>rw</Mode>
+      <Description>Sync mode (fast, safe, or unsafe)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_PRUNING</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Enable pruning (0=disabled, or size in MB)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_DB_SALVAGE</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Database salvage mode (0=disabled, 1=enabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_MAX_CONCURRENCY</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Maximum concurrency (0=auto)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_PREPARE_MULTISIG</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Prepare multisig wallet (0=disabled, 1=enabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_OFFLINE</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Offline mode (0=disabled, 1=enabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_DATA_DIR</Name>
+      <Value>/home/monero/.bitmonero</Value>
+      <Mode>rw</Mode>
+      <Description>Monero data directory</Description>
+    </Variable>
+    <Variable>
+      <Name>MONERO_LOG_LEVEL</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Log level (0-4, higher = more verbose)</Description>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Key>com.unraid.docker.managed</Key>
+      <Value>dman</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.webui</Key>
+      <Value>http://[IP]:[PORT:18089]</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.icon</Key>
+      <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/monero/icon.png</Value>
+    </Label>
+  </Labels>
+  <PostArgs>--network=${MONERO_NETWORK} --rpc-bind-ip=${MONERO_RPC_BIND_IP} --rpc-bind-port=${MONERO_RPC_BIND_PORT} --p2p-bind-ip=${MONERO_P2P_BIND_IP} --p2p-bind-port=${MONERO_P2P_BIND_PORT} --zmq-rpc-bind-ip=${MONERO_ZMQ_RPC_BIND_IP} --zmq-rpc-bind-port=${MONERO_ZMQ_RPC_BIND_PORT} --zmq-pub-bind-ip=${MONERO_ZMQ_PUB_BIND_IP} --zmq-pub-bind-port=${MONERO_ZMQ_PUB_BIND_PORT} --rpc-login=${MONERO_RPC_LOGIN} --restricted-rpc=${MONERO_RESTRICTED_RPC} --disable-rpc-login=${MONERO_DISABLE_RPC_LOGIN} --sync-mode=${MONERO_SYNC_MODE} --prune=${MONERO_PRUNING} --db-salvage=${MONERO_DB_SALVAGE} --max-concurrency=${MONERO_MAX_CONCURRENCY} --prepare-multisig=${MONERO_PREPARE_MULTISIG} --offline=${MONERO_OFFLINE} --data-dir=${MONERO_DATA_DIR} --log-level=${MONERO_LOG_LEVEL}</PostArgs>
+</Container>

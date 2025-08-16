@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Umbrel Mempool</Name>
+  <Repository>getumbrel/mempool:latest</Repository>
+  <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/mempool</Registry>
+  <BaseImage>node:18-alpine</BaseImage>
+  <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/mempool/icon.png</Icon>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <Shell>ash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
+  <Project>https://github.com/getumbrel/umbrel-apps</Project>
+  <Overview>Umbrel Mempool is a Bitcoin mempool explorer that provides real-time transaction monitoring, fee estimation, and blockchain analytics.</Overview>
+  <Category>Blockchain</Category>
+  <Description>Umbrel Mempool is a Bitcoin mempool explorer that provides you with:
+
+- Real-time mempool monitoring
+- Transaction fee estimation
+- Block explorer functionality
+- Network statistics and analytics
+- Beautiful web interface for Bitcoin data
+
+⚠️ IMPORTANT: This app requires a Bitcoin Core node to function. Install the Umbrel Bitcoin app first.
+
+The app runs a mempool explorer in a Docker container with optimized settings for home servers and connects to your Bitcoin node for blockchain data.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>3000</HostPort>
+        <ContainerPort>3000</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>8999</HostPort>
+        <ContainerPort>8999</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-mempool</HostDir>
+      <ContainerDir>/app/mempool</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Name>MEMPOOL_NETWORK</Name>
+      <Value>mainnet</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin network (mainnet, testnet, or signet)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_HOST</Name>
+      <Value>umbrel-bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core hostname (use 'umbrel-bitcoin' for container networking)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_PORT</Name>
+      <Value>8332</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC port</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_USERNAME</Name>
+      <Value>umbrel</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC username (must match Bitcoin node)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_PASSWORD</Name>
+      <Value>changeme</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC password (must match Bitcoin node - CHANGE THIS!)</Value>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_P2P_HOST</Name>
+      <Value>umbrel-bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core P2P hostname</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_P2P_PORT</Name>
+      <Value>8333</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core P2P port</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_BITCOIN_DATA_DIR</Name>
+      <Value>/mnt/user/appdata/umbrel-bitcoin/.bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core data directory path</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_MYSQL_HOST</Name>
+      <Value>umbrel-mempool-db</Value>
+      <Mode>rw</Mode>
+      <Description>MySQL database hostname</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_MYSQL_PORT</Name>
+      <Value>3306</Value>
+      <Mode>rw</Mode>
+      <Description>MySQL database port</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_MYSQL_DATABASE</Name>
+      <Value>mempool</Value>
+      <Mode>rw</Mode>
+      <Description>MySQL database name</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_MYSQL_USERNAME</Name>
+      <Value>mempool</Value>
+      <Mode>rw</Mode>
+      <Description>MySQL database username</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_MYSQL_PASSWORD</Name>
+      <Value>changeme</Value>
+      <Mode>rw</Mode>
+      <Description>MySQL database password (CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_HTTP_PORT</Name>
+      <Value>3000</Value>
+      <Mode>rw</Mode>
+      <Description>HTTP web interface port</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_API_PORT</Name>
+      <Value>8999</Value>
+      <Mode>rw</Mode>
+      <Description>API server port</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_ENABLE_ELECTRS</Name>
+      <Value>true</Value>
+      <Mode>rw</Mode>
+      <Description>Enable Electrs integration (requires Electrs app)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_ELECTRS_HOST</Name>
+      <Value>umbrel-electrs</Value>
+      <Mode>rw</Mode>
+      <Description>Electrs hostname (use 'umbrel-electrs' for container networking)</Description>
+    </Variable>
+    <Variable>
+      <Name>MEMPOOL_ELECTRS_PORT</Name>
+      <Value>50001</Value>
+      <Mode>rw</Mode>
+      <Description>Electrs port</Description>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Key>com.unraid.docker.managed</Key>
+      <Value>dman</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.webui</Key>
+      <Value>http://[IP]:[PORT:3000]</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.icon</Key>
+      <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/mempool/icon.png</Value>
+    </Label>
+  </Labels>
+  <PostArgs>--network=${MEMPOOL_NETWORK} --bitcoin-host=${MEMPOOL_BITCOIN_HOST} --bitcoin-port=${MEMPOOL_BITCOIN_PORT} --bitcoin-username=${MEMPOOL_BITCOIN_USERNAME} --bitcoin-password=${MEMPOOL_BITCOIN_PASSWORD} --bitcoin-p2p-host=${MEMPOOL_BITCOIN_P2P_HOST} --bitcoin-p2p-port=${MEMPOOL_BITCOIN_P2P_PORT} --bitcoin-data-dir=${MEMPOOL_BITCOIN_DATA_DIR} --mysql-host=${MEMPOOL_MYSQL_HOST} --mysql-port=${MEMPOOL_MYSQL_PORT} --mysql-database=${MEMPOOL_MYSQL_DATABASE} --mysql-username=${MEMPOOL_MYSQL_USERNAME} --mysql-password=${MEMPOOL_MYSQL_PASSWORD} --http-port=${MEMPOOL_HTTP_PORT} --api-port=${MEMPOOL_API_PORT} --enable-electrs=${MEMPOOL_ENABLE_ELECTRS} --electrs-host=${MEMPOOL_ELECTRS_HOST} --electrs-port=${MEMPOOL_ELECTRS_PORT}</PostArgs>
+</Container>

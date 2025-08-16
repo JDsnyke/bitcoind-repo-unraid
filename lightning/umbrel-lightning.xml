@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Umbrel Lightning</Name>
+  <Repository>getumbrel/lightning:latest</Repository>
+  <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/lightning</Registry>
+  <BaseImage>alpine:3.18</BaseImage>
+  <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/lightning/icon.png</Icon>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <Shell>ash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
+  <Project>https://github.com/getumbrel/umbrel-apps</Project>
+  <Overview>Umbrel Lightning is a Lightning Network node implementation that provides fast, low-cost Bitcoin transactions and payment routing capabilities.</Overview>
+  <Category>Blockchain</Category>
+  <Description>Umbrel Lightning is a Lightning Network node implementation that provides you with:
+
+- Lightning Network payment channels
+- Fast, low-cost Bitcoin transactions
+- Payment routing and forwarding
+- Channel management and monitoring
+- Web interface for Lightning operations
+
+⚠️ IMPORTANT: This app requires a Bitcoin Core node to function. Install the Umbrel Bitcoin app first.
+
+The app runs a Lightning Network node in a Docker container with optimized settings for home servers and connects to your Bitcoin node for blockchain data.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>3000</HostPort>
+        <ContainerPort>3000</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>9735</HostPort>
+        <ContainerPort>9735</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>8080</HostPort>
+        <ContainerPort>8080</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-lightning</HostDir>
+      <ContainerDir>/home/lightning/.lightning</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Name>LIGHTNING_NETWORK</Name>
+      <Value>bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin network (bitcoin, testnet, or regtest)</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_BITCOIN_RPC_HOST</Name>
+      <Value>umbrel-bitcoin</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC hostname (use 'umbrel-bitcoin' for container networking)</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_BITCOIN_RPC_PORT</Name>
+      <Value>8332</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC port</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_BITCOIN_RPC_USER</Name>
+      <Value>umbrel</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC username (must match Bitcoin node)</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_BITCOIN_RPC_PASSWORD</Name>
+      <Value>changeme</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC password (must match Bitcoin node - CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_BITCOIN_RPC_PROTOCOL</Name>
+      <Value>http</Value>
+      <Mode>rw</Mode>
+      <Description>Bitcoin Core RPC protocol</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_ALIAS</Name>
+      <Value>Umbrel Lightning</Value>
+      <Mode>rw</Mode>
+      <Description>Lightning node alias</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_COLOR</Name>
+      <Value>3399FF</Value>
+      <Mode>rw</Mode>
+      <Description>Lightning node color (hex format)</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_WEB_PORT</Name>
+      <Value>3000</Value>
+      <Mode>rw</Mode>
+      <Description>Web interface port</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_P2P_PORT</Name>
+      <Value>9735</Value>
+      <Mode>rw</Mode>
+      <Description>Lightning P2P port</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_REST_PORT</Name>
+      <Value>8080</Value>
+      <Mode>rw</Mode>
+      <Description>REST API port</Description>
+    </Variable>
+    <Variable>
+      <Name>LIGHTNING_LOG_LEVEL</Name>
+      <Value>info</Value>
+      <Mode>rw</Mode>
+      <Description>Logging level (debug, info, warn, error)</Description>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Key>com.unraid.docker.managed</Key>
+      <Value>dman</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.webui</Key>
+      <Value>http://[IP]:[PORT:3000]</Value>
+    </Label>
+    <Label>
+      <Key>com.unraid.docker.icon</Key>
+      <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/lightning/icon.png</Value>
+    </Label>
+  </Labels>
+  <PostArgs>--network=${LIGHTNING_NETWORK} --bitcoin-rpc-host=${LIGHTNING_BITCOIN_RPC_HOST} --bitcoin-rpc-port=${LIGHTNING_BITCOIN_RPC_PORT} --bitcoin-rpc-user=${LIGHTNING_BITCOIN_RPC_USER} --bitcoin-rpc-password=${LIGHTNING_BITCOIN_RPC_PASSWORD} --bitcoin-rpc-protocol=${LIGHTNING_BITCOIN_RPC_PROTOCOL} --alias=${LIGHTNING_ALIAS} --color=${LIGHTNING_COLOR} --web-port=${LIGHTNING_WEB_PORT} --p2p-port=${LIGHTNING_P2P_PORT} --rest-port=${LIGHTNING_REST_PORT} --log-level=${LIGHTNING_LOG_LEVEL}</PostArgs>
+</Container>

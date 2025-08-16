@@ -1,0 +1,65 @@
+# Electrs Configuration Template
+# Copy this file to /mnt/user/appdata/umbrel-electrs/electrs.conf and customize as needed
+
+# Network Configuration
+network = "bitcoin"
+# network = "testnet"
+# network = "regtest"
+
+# Bitcoin Core Connection
+daemon_rpc_addr = "bitcoin:8332"
+daemon_rpc_user = "umbrel"
+daemon_rpc_pass = "changeme"
+daemon_p2p_addr = "bitcoin:8333"
+
+# Electrum Protocol
+electrum_rpc_addr = "0.0.0.0:50001"
+electrum_rpc_addr_index = "0.0.0.0:50002"
+
+# HTTP API
+http_addr = "0.0.0.0:3000"
+
+# Logging
+verbosity = 4
+# verbosity = 0  # Error only
+# verbosity = 1  # Warning
+# verbosity = 2  # Info
+# verbosity = 3  # Debug
+# verbosity = 4  # Trace
+
+# Monitoring
+monitoring_addr = "0.0.0.0:4224"
+
+# Database
+db_dir = "/home/electrs/.electrs/db"
+
+# Indexing Configuration
+index_batch_size = 10
+index_limit = 1000
+
+# Performance Tuning
+# db_cache_size = 100000000  # 100MB cache
+# bulk_index_threads = 4
+# jsonrpc_threads = 4
+
+# Security
+# cookie_file = "/path/to/bitcoin/.cookie"
+# auth = "user:password"
+
+# Additional Options
+# append = false
+# electrum_tls = false
+# electrum_tls_cert = "/path/to/cert.pem"
+# electrum_tls_key = "/path/to/key.pem"
+# electrum_tls_verify = false
+
+# Network Specific Settings
+# For testnet:
+# network = "testnet"
+# daemon_rpc_addr = "bitcoin:18332"
+# daemon_p2p_addr = "bitcoin:18333"
+
+# For regtest:
+# network = "regtest"
+# daemon_rpc_addr = "bitcoin:18443"
+# daemon_p2p_addr = "bitcoin:18444"
