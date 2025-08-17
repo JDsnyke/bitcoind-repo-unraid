@@ -1,0 +1,29 @@
+manifestVersion: 1.1
+id: lightning
+category: bitcoin
+name: Lightning Node
+version: "0.19.2-beta"
+tagline: Run your personal Lightning Network node
+description: >
+  Run your Lightning Network node and open payment channels to other nodes.
+  Send and receive instant, low-fee Bitcoin payments through the Lightning Network.
+
+
+  Powered by LND from Lightning Labs.
+
+
+  An official app from Umbrel.
+developer: Umbrel
+website: https://umbrel.com/
+dependencies:
+  - bitcoin
+repo: https://github.com/getumbrel/umbrel-lightning
+support: https://community.getumbrel.com/c/bitcoin-and-lightning
+port: 2103
+gallery:
+  - 1.jpg
+  - 2.jpg
+path: ""
+defaultPassword: ""
+releaseNotes: >-
+  Initial release of Lightning Node app for Umbrel.

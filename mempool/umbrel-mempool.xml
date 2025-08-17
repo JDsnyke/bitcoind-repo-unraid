@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Umbrel Mempool</Name>
-  <Repository>getumbrel/mempool:latest</Repository>
+  <Repository>mempool/backend:v3.2.1</Repository>
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/mempool</Registry>
   <BaseImage>node:18-alpine</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/mempool/icon.png</Icon>

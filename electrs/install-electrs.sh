@@ -48,7 +48,7 @@ fi
 APP_NAME="umbrel-electrs"
 DATA_DIR="/mnt/user/appdata/${APP_NAME}"
 CONTAINER_NAME="${APP_NAME}"
-IMAGE_NAME="getumbrel/electrs:latest"
+IMAGE_NAME="getumbrel/electrs:v0.10.9"
 
 echo "Configuration:"
 echo "  App Name: ${APP_NAME}"

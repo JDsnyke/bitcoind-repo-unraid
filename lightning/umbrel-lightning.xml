@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Umbrel Lightning</Name>
-  <Repository>getumbrel/lightning:latest</Repository>
+  <Repository>lightninglabs/lnd:v0.19.2-beta</Repository>
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/lightning</Registry>
   <BaseImage>alpine:3.18</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/lightning/icon.png</Icon>

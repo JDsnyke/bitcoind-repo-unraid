@@ -60,7 +60,7 @@ services:
 
   # Optional Bitcoin node for testing (comment out if using external Bitcoin node)
   umbrel-bitcoin:
-    image: getumbrel/bitcoin:latest
+    image: ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0@sha256:311d14cf3cb0a49fad7779310521f1abd9242dfcc2f08eb8e3cbff97ca67d6ea
     container_name: umbrel-bitcoin
     ports:
       - "8332:8332"  # RPC
@@ -89,7 +89,7 @@ services:
 
   # Optional Electrs for testing (comment out if using external Electrs)
   umbrel-electrs:
-    image: getumbrel/electrs:latest
+    image: getumbrel/electrs:v0.10.9@sha256:622657fbdc7331a69f5b3444e6f87867d51ac27d90c399c8bf25d9aab020052b
     container_name: umbrel-electrs
     ports:
       - "3001:3000"  # HTTP API (different port to avoid conflict)

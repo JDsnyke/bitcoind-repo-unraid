@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Umbrel Electrs</Name>
-  <Repository>getumbrel/electrs:latest</Repository>
+  <Repository>getumbrel/electrs:v0.10.9</Repository>
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/electrs</Registry>
   <BaseImage>rust:1.70-slim</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Icon>

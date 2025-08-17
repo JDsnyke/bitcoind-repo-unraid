@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Configuration variables
 APP_NAME="Umbrel Monero"
 CONTAINER_NAME="umbrel-monero"
-IMAGE_NAME="getumbrel/monero:latest"
+IMAGE_NAME="ghcr.io/sethforprivacy/simple-monerod:v0.18.4.1"
 DATA_DIR="/mnt/user/appdata/umbrel-monero"
 CONFIG_FILE="$DATA_DIR/monero.conf"
 TEMPLATE_FILE="monero.conf.template"

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Umbrel Monero</Name>
-  <Repository>getumbrel/monero:latest</Repository>
+  <Repository>ghcr.io/sethforprivacy/simple-monerod:v0.18.4.1</Repository>
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/monero</Registry>
   <BaseImage>ubuntu:22.04</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/monero/icon.png</Icon>

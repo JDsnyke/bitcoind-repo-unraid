@@ -48,7 +48,7 @@ fi
 APP_NAME="umbrel-bitcoin"
 DATA_DIR="/mnt/user/appdata/${APP_NAME}"
 CONTAINER_NAME="${APP_NAME}"
-IMAGE_NAME="getumbrel/bitcoin:latest"
+IMAGE_NAME="ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0"
 
 echo "Configuration:"
 echo "  App Name: ${APP_NAME}"
@@ -91,21 +91,13 @@ prune=0
 dbcache=450
 maxmempool=300
 
-# Tor Configuration
-proxy=127.0.0.1:9050
-onion=127.0.0.1:9050
-torcontrol=127.0.0.1:9051
-torpassword=moneyprintergobrrr
-listenonion=1
 
-# I2P Configuration
-i2psam=127.0.0.1:7656
 EOF
     chown nobody:users "${DATA_DIR}/bitcoin.conf"
     chmod 644 "${DATA_DIR}/bitcoin.conf"
     echo "Created ${DATA_DIR}/bitcoin.conf"
     echo "IMPORTANT: Change the rpcpassword in bitcoin.conf!"
-    echo "Note: Tor and I2P configuration included for privacy"
+    echo "Note: Enhanced Bitcoin Core configuration for production use"
 fi
 
 # Pull the Docker image

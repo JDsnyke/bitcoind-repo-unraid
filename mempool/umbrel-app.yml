@@ -1,0 +1,29 @@
+manifestVersion: 1.1
+id: mempool
+category: bitcoin
+name: Mempool
+version: "3.2.1"
+tagline: Bitcoin mempool explorer and fee estimator
+description: >
+  Monitor the Bitcoin mempool in real-time. View pending transactions,
+  estimate transaction fees, and track network activity.
+
+
+  Powered by Mempool.space.
+
+
+  An official app from Umbrel.
+developer: Umbrel
+website: https://umbrel.com/
+dependencies:
+  - bitcoin
+repo: https://github.com/getumbrel/umbrel-mempool
+support: https://community.getumbrel.com/c/bitcoin-and-lightning
+port: 2104
+gallery:
+  - 1.jpg
+  - 2.jpg
+path: ""
+defaultPassword: ""
+releaseNotes: >-
+  Initial release of Mempool app for Umbrel.

@@ -17,19 +17,8 @@ rpcworkqueue=16
 # P2P Configuration
 port=8333
 listen=1
-listenonion=1
 maxconnections=125
 maxuploadtarget=5000
-
-# Tor Configuration
-proxy=127.0.0.1:9050
-onion=127.0.0.1:9050
-torcontrol=127.0.0.1:9051
-torpassword=moneyprintergobrrr
-listenonion=1
-
-# I2P Configuration
-i2psam=127.0.0.1:7656
 
 # Wallet Configuration
 disablewallet=1
@@ -54,13 +43,11 @@ par=0
 # Logging Configuration
 debug=rpc
 debug=net
-debug=tor
-debug=i2p
 logips=1
 
 # Security Configuration
-rpcbind=127.0.0.1
-rpcallowip=127.0.0.1
+# rpcbind=127.0.0.1  # Commented out to allow container access
+# rpcallowip=127.0.0.1  # Commented out to allow container access
 # rpcbind=0.0.0.0  # Only enable if you need external RPC access
 # rpcallowip=192.168.1.0/24  # Restrict to specific network
 

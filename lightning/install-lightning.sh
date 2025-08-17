@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Configuration variables
 APP_NAME="Umbrel Lightning"
 CONTAINER_NAME="umbrel-lightning"
-IMAGE_NAME="getumbrel/lightning:latest"
+IMAGE_NAME="lightninglabs/lnd:v0.19.2-beta"
 DATA_DIR="/mnt/user/appdata/umbrel-lightning"
 CONFIG_FILE="$DATA_DIR/lightning.conf"
 TEMPLATE_FILE="lightning.conf.template"

@@ -1,0 +1,31 @@
+manifestVersion: 1.1
+id: electrs
+category: bitcoin
+name: Electrs
+version: "0.10.9"
+tagline: A simple and efficient Electrum Server
+description: >
+  Run your personal Electrum server and connect your Electrum-compatible wallet,
+  including BitBoxApp, BlueWallet, Electrum Wallet (Android and Desktop), Nunchuk 
+  (Desktop), Phoenix, and Sparrow Wallet to it instead of using a third-party
+  Electrum server.
+
+
+  Powered by Electrs from Roman Zeyde.
+
+
+  An official app from Umbrel.
+developer: Umbrel
+website: https://umbrel.com/
+dependencies:
+  - bitcoin
+repo: https://github.com/getumbrel/umbrel-electrs
+support: https://community.getumbrel.com/c/bitcoin-and-lightning
+port: 2102
+gallery:
+  - 1.jpg
+  - 2.jpg
+path: ""
+defaultPassword: ""
+releaseNotes: >-
+  Initial release of Electrs app for Umbrel.

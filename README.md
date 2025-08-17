@@ -6,12 +6,12 @@ This repository contains Community Application templates for running multiple Um
 
 This repository provides five complementary blockchain applications with enhanced privacy and security:
 
-**🔒 Privacy-First Design**: Bitcoin app includes built-in Tor and I2P integration for maximum privacy
+**🔒 Official Containers**: All apps use official Umbrel container images for maximum compatibility
 **🌐 Multiple Networks**: Support for mainnet, testnet, and regtest across all Bitcoin-based apps
 **📊 Real-time Monitoring**: Built-in monitoring and analytics for all applications
 **🔧 Easy Management**: Simple installation and configuration through Unraid Community Applications
 
-1. **Umbrel Bitcoin** - A full Bitcoin Core node with Tor and I2P privacy integration
+1. **Umbrel Bitcoin** - A full Bitcoin Core node using official Umbrel container
 2. **Umbrel Electrs** - A fast Electrum server implementation for wallet connectivity
 3. **Umbrel Lightning** - A Lightning Network node for fast Bitcoin transactions
 4. **Umbrel Mempool** - A Bitcoin mempool explorer for transaction monitoring
@@ -37,7 +37,7 @@ bitcoind-repo-unraid/
 │   ├── Dockerfile             # Container definition
 │   ├── docker-compose.yml     # Local testing setup
 │   ├── bitcoin.conf.template  # Configuration template
-│   ├── torrc.template         # Tor configuration template
+│   ├── bitcoin.conf.template  # Configuration template
 │   └── install-bitcoin.sh     # Installation script (requires root)
 ├── electrs/                   # Umbrel Electrs app
 │   ├── umbrel-electrs.xml    # Community Application template
@@ -77,11 +77,9 @@ bitcoind-repo-unraid/
 The apps store data in the Unraid `appdata` share:
 ```
 /mnt/user/appdata/
-├── umbrel-bitcoin/          # Bitcoin blockchain + Tor/I2P data
+├── umbrel-bitcoin/          # Bitcoin blockchain data
 │   ├── .bitcoin/            # Bitcoin Core data
-│   ├── bitcoin.conf         # Bitcoin configuration
-│   ├── tor/                 # Tor data and hidden services
-│   └── i2pd/                # I2P data
+│   └── bitcoin.conf         # Bitcoin configuration
 ├── umbrel-electrs/          # Electrs database and config
 ├── umbrel-lightning/        # Lightning data
 ├── umbrel-mempool/          # Mempool database
@@ -163,15 +161,12 @@ For advanced users who want full control over container configuration:
 
 #### Bitcoin Node Setup
 - **Name**: `umbrel-bitcoin`
-- **Repository**: `getumbrel/bitcoin:latest`
-- **Ports**: `8332:8332` (RPC), `8333:8333` (P2P), `9050:9050` (Tor), `9051:9051` (Tor Control), `7656:7656` (I2P)
-- **Volume**: `/mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin`
-- **Environment Variables**: Basic Bitcoin configuration (see Bitcoin README for Tor/I2P setup)
+- **Repository**: `ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0`
+- **Ports**: `8332:8332` (RPC), `8333:8333` (P2P), `18332:18332` (testnet RPC), `18333:18333` (testnet P2P)
+- **Volume**: `/mnt/user/appdata/umbrel-bitcoin:/data`
+- **Environment Variables**: Basic Bitcoin configuration (see Bitcoin README for setup)
 
-**Note**: The Bitcoin app includes Tor and I2P privacy services that run automatically:
-- **Tor Container**: SOCKS proxy (port 9050) and control (port 9051)
-- **I2P Container**: I2P SAM protocol (port 7656)
-- **Hidden Services**: Automatic creation of onion and I2P addresses
+**Note**: The Bitcoin app uses the official Umbrel container with enhanced performance optimization
 
 ### Method 2: Docker Tab (Alternative)
 
@@ -179,14 +174,14 @@ For advanced users who want full control over container configuration:
    - Go to **Docker** tab in Unraid WebGUI
    - Click **Add Container**
    - **Name**: `umbrel-bitcoin`
-   - **Repository**: `getumbrel/bitcoin:latest`
+   - **Repository**: `ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0`
    - **Network Type**: Bridge
    - **Port Mappings**: 
      - `8332:8332` (RPC)
      - `8333:8333` (P2P)
      - `18332:18332` (testnet RPC)
      - `18333:18333` (testnet P2P)
-   - **Volumes**: `/mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin`
+   - **Volumes**: `/mnt/user/appdata/umbrel-bitcoin:/data`
    - **Environment Variables**:
      - `BITCOIN_NETWORK=bitcoin`
      - `BITCOIN_RPC_USER=umbrel`
@@ -203,7 +198,7 @@ For advanced users who want full control over container configuration:
    
    **Electrs**:
    - **Name**: `umbrel-electrs`
-   - **Repository**: `getumbrel/electrs:latest`
+   - **Repository**: `getumbrel/electrs:v0.10.9`
    - **Port Mappings**: `3000:3000`, `50001:50001`, `50002:50002`, `4224:4224`
    - **Volumes**: `/mnt/user/appdata/umbrel-electrs:/home/electrs/.electrs`
    - **Environment Variables**:
@@ -215,7 +210,7 @@ For advanced users who want full control over container configuration:
 
    **Lightning**:
    - **Name**: `umbrel-lightning`
-   - **Repository**: `getumbrel/lightning:latest`
+   - **Repository**: `lightninglabs/lnd:v0.19.2-beta`
    - **Port Mappings**: `3000:3000`, `9735:9735`, `8080:8080`
    - **Volumes**: `/mnt/user/appdata/umbrel-lightning:/home/lightning/.lightning`
    - **Environment Variables**:
@@ -226,7 +221,7 @@ For advanced users who want full control over container configuration:
 
    **Mempool**:
    - **Name**: `umbrel-mempool`
-   - **Repository**: `getumbrel/mempool:latest`
+   - **Repository**: `mempool/backend:v3.2.1`
    - **Port Mappings**: `3000:3000`, `8999:8999`
    - **Volumes**: `/mnt/user/appdata/umbrel-mempool:/app/mempool`
    - **Environment Variables**:
@@ -237,7 +232,7 @@ For advanced users who want full control over container configuration:
 
    **Monero** (standalone):
    - **Name**: `umbrel-monero`
-   - **Repository**: `getumbrel/monero:latest`
+   - **Repository**: `ghcr.io/sethforprivacy/simple-monerod:v0.18.4.1`
    - **Port Mappings**: `18089:18089`, `18090:18090`, `18091:18091`, `18092:18092`
    - **Volumes**: `/mnt/user/appdata/umbrel-monero:/home/monero/.bitmonero`
    - **Environment Variables**:
@@ -249,7 +244,7 @@ For advanced users who want full control over container configuration:
 ```bash
 # First install Bitcoin node
 cd bitcoin
-sudo ./install-unraid.sh
+sudo ./install-bitcoin.sh
 
 # Wait for Bitcoin sync, then install additional apps
 cd ../electrs
@@ -274,17 +269,17 @@ For users installing through the **Docker** tab, here are the key settings for e
 | Setting | Value |
 |---------|-------|
 | **Name** | `umbrel-bitcoin` |
-| **Repository** | `getumbrel/bitcoin:latest` |
-| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333`, `9050:9050`, `9051:9051`, `7656:7656` |
-| **Volume** | `/mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin` |
+| **Repository** | `ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0` |
+| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333` |
+| **Volume** | `/mnt/user/appdata/umbrel-bitcoin:/data` |
 | **Network** | Bridge |
-| **Note** | Includes Tor and I2P privacy services |
+| **Note** | Official Umbrel Bitcoin container |
 
 ### Electrs Server
 | Setting | Value |
 |---------|-------|
 | **Name** | `umbrel-electrs` |
-| **Repository** | `getumbrel/electrs:latest` |
+| **Repository** | `getumbrel/electrs:v0.10.9` |
 | **Ports** | `3000:3000`, `50001:50001`, `50002:50002`, `4224:4224` |
 | **Volume** | `/mnt/user/appdata/umbrel-electrs:/home/electrs/.electrs` |
 | **Network** | Bridge |
@@ -293,7 +288,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 | Setting | Value |
 |---------|-------|
 | **Name** | `umbrel-lightning` |
-| **Repository** | `getumbrel/lightning:latest` |
+| **Repository** | `lightninglabs/lnd:v0.19.2-beta` |
 | **Ports** | `3001:3000`, `9735:9735`, `8081:8080` |
 | **Volume** | `/mnt/user/appdata/umbrel-lightning:/home/lightning/.lightning` |
 | **Network** | Bridge |
@@ -302,7 +297,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 | Setting | Value |
 |---------|-------|
 | **Name** | `umbrel-mempool` |
-| **Repository** | `getumbrel/mempool:latest` |
+| **Repository** | `mempool/backend:v3.2.1` |
 | **Ports** | `3002:3000`, `8999:8999` |
 | **Volume** | `/mnt/user/appdata/umbrel-mempool:/app/mempool` |
 | **Network** | Bridge |
@@ -311,12 +306,12 @@ For users installing through the **Docker** tab, here are the key settings for e
 | Setting | Value |
 |---------|-------|
 | **Name** | `umbrel-monero` |
-| **Repository** | `getumbrel/monero:latest` |
+| **Repository** | `ghcr.io/sethforprivacy/simple-monerod:v0.18.4.1` |
 | **Ports** | `18089:18089`, `18090:18090`, `18091:18091`, `18092:18092` |
 | **Volume** | `/mnt/user/appdata/umbrel-monero:/home/monero/.bitmonero` |
 | **Network** | Bridge |
 
-**Note**: Port conflicts are resolved by using different host ports (3001, 3002) while keeping container ports the same. See [UNRAID_SETUP.md](UNRAID_SETUP.md) for detailed Docker tab installation instructions.
+**Note**: Port conflicts are resolved by using different host ports (3001, 3002) while keeping container ports the same. See the Docker Tab section above for detailed installation instructions.
 
 ## Architecture
 

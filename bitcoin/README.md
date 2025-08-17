@@ -11,9 +11,9 @@ Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment on Unraid ser
 - **Full Bitcoin Node**: Complete Bitcoin blockchain validation
 - **RPC Access**: Programmatic access to Bitcoin Core functionality
 - **Multiple Networks**: Support for mainnet, testnet, and regtest
-- **Tor Integration**: Built-in Tor daemon for privacy and hidden services
-- **I2P Support**: I2P network integration for additional privacy layers
-- **Hidden Services**: Onion and I2P hidden services for P2P and RPC
+- **Enhanced Security**: Optimized configuration for production use
+- **Performance Tuning**: Configurable database cache and memory settings
+- **Easy Management**: Simple installation and configuration through Unraid Community Applications
 - **Optimized Storage**: Configurable pruning and indexing options
 - **Easy Management**: Simple installation and configuration through Unraid Community Applications
 
@@ -78,9 +78,7 @@ Use the provided installation script:
 | 8333 | TCP | Bitcoin P2P (mainnet) |
 | 18332 | TCP | Bitcoin RPC (testnet) |
 | 18333 | TCP | Bitcoin P2P (testnet) |
-| 9050 | TCP | Tor SOCKS proxy |
-| 9051 | TCP | Tor control port |
-| 7656 | TCP | I2P SAM protocol |
+
 
 ### Storage
 
@@ -89,15 +87,9 @@ The app stores Bitcoin blockchain data in `/mnt/user/appdata/umbrel-bitcoin` by 
 - Configuration files
 - Logs
 - Indexes
-- Tor configuration and data
-- I2P configuration and data
 
-### Privacy Features
 
-#### Tor Integration
-- **SOCKS Proxy**: Available on port 9050
-- **Control Port**: Available on port 9051 (password: moneyprintergobrrr)
-- **Hidden Services**: Automatic creation of onion addresses for P2P and RPC
+
 - **Network Privacy**: All Bitcoin traffic can be routed through Tor
 
 #### I2P Integration

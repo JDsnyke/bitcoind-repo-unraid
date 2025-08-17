@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   umbrel-lightning:
-    build: .
+    image: lightninglabs/lnd:v0.19.2-beta@sha256:dd113dff920c309bf5c4af6a37d912f379dc24c51f266a2c878c12d20501798b
     container_name: umbrel-lightning
     ports:
       - "3000:3000"  # Web interface
@@ -35,7 +35,7 @@ services:
 
   # Optional Bitcoin node for testing (comment out if using external Bitcoin node)
   umbrel-bitcoin:
-    image: getumbrel/bitcoin:latest
+    image: ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0@sha256:311d14cf3cb0a49fad7779310521f1abd9242dfcc2f08eb8e3cbff97ca67d6ea
     container_name: umbrel-bitcoin
     ports:
       - "8332:8332"  # RPC
