@@ -212,15 +212,6 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Description>Number of parallel script check threads (0=auto)</Description>
     </Variable>
   </Environment>
-  <Config>
-    <ConfigFile>/mnt/user/appdata/umbrel-bitcoin/bitcoin.conf</ConfigFile>
-    <ConfigFile>/mnt/user/appdata/umbrel-bitcoin/torrc</ConfigFile>
-  </Config>
-  <ExtraParams></ExtraParams>
-  <Startup>
-    <Order>1</Order>
-    <Delay>10</Delay>
-  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -235,5 +226,4 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/bitcoin/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network=${BITCOIN_NETWORK} --rpcuser=${BITCOIN_RPC_USER} --rpcpassword=${BITCOIN_RPC_PASSWORD} --rpcbind=${BITCOIN_RPC_BIND} --rpcallowip=${BITCOIN_RPC_ALLOW_IP} --disablewallet=${BITCOIN_DISABLE_WALLET} --txindex=${BITCOIN_TXINDEX} --blockfilterindex=${BITCOIN_BLOCKFILTERINDEX} --prune=${BITCOIN_PRUNING} --dbcache=${BITCOIN_DBCACHE} --maxmempool=${BITCOIN_MAXMEMPOOL} --maxconnections=${BITCOIN_MAXCONNECTIONS} --maxuploadtarget=${BITCOIN_MAXUPLOADTARGET} --coinstatsindex=${BITCOIN_COINSTATSINDEX} --mempoolexpiry=${BITCOIN_MEMPOOLEXPIRY} --par=${BITCOIN_PAR}</PostArgs>
 </Container>

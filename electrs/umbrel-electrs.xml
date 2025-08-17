@@ -177,14 +177,7 @@ The app runs Electrs in a Docker container with optimized settings for home serv
         <Description>Wait for daemon to be ready (1=enabled, 0=disabled)</Description>
       </Variable>
     </Environment>
-  <Config>
-    <ConfigFile>/mnt/user/appdata/umbrel-electrs/electrs.conf</ConfigFile>
-  </Config>
-  <ExtraParams></ExtraParams>
-  <Startup>
-    <Order>2</Order>
-    <Delay>15</Delay>
-  </Startup>
+
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -199,5 +192,5 @@ The app runs Electrs in a Docker container with optimized settings for home serv
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network ${ELECTRS_NETWORK} --daemon-rpc-addr ${ELECTRS_DAEMON_RPC_ADDR} --daemon-rpc-user ${ELECTRS_DAEMON_RPC_USER} --daemon-rpc-pass ${ELECTRS_DAEMON_RPC_PASS} --daemon-p2p-addr ${ELECTRS_DAEMON_P2P_ADDR} --electrum-rpc-addr ${ELECTRS_ELECTRUM_RPC_ADDR} --electrum-rpc-addr-index ${ELECTRS_ELECTRUM_RPC_ADDR_INDEX} --http-addr ${ELECTRS_HTTP_ADDR} --verbosity ${ELECTRS_VERBOSITY} --monitoring-addr ${ELECTRS_MONITORING_ADDR} --db-dir ${ELECTRS_DB_DIR} --index-batch-size ${ELECTRS_INDEX_BATCH_SIZE} --index-limit ${ELECTRS_INDEX_LIMIT} --timestamp ${ELECTRS_TIMESTAMP} --jsonrpc-import ${ELECTRS_JSONRPC_IMPORT} --serve ${ELECTRS_SERVE} --daemon-poll-interval-msecs ${ELECTRS_DAEMON_POLL_INTERVAL_MSECS} --daemon-retry-interval-msecs ${ELECTRS_DAEMON_RETRY_INTERVAL_MSECS} --daemon-timeout ${ELECTRS_DAEMON_TIMEOUT} --daemon-wait ${ELECTRS_DAEMON_WAIT}</PostArgs>
+
 </Container>

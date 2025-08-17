@@ -155,14 +155,7 @@ The app runs a mempool explorer in a Docker container with optimized settings fo
       <Description>Electrs port</Description>
           </Variable>
     </Environment>
-  <Config>
-    <ConfigFile>/mnt/user/appdata/umbrel-mempool/mempool.conf</ConfigFile>
-  </Config>
-  <ExtraParams></ExtraParams>
-  <Startup>
-    <Order>4</Order>
-    <Delay>25</Delay>
-  </Startup>
+
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -177,5 +170,5 @@ The app runs a mempool explorer in a Docker container with optimized settings fo
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/mempool/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network=${MEMPOOL_NETWORK} --bitcoin-host=${MEMPOOL_BITCOIN_HOST} --bitcoin-port=${MEMPOOL_BITCOIN_PORT} --bitcoin-username=${MEMPOOL_BITCOIN_USERNAME} --bitcoin-password=${MEMPOOL_BITCOIN_PASSWORD} --bitcoin-p2p-host=${MEMPOOL_BITCOIN_P2P_HOST} --bitcoin-p2p-port=${MEMPOOL_BITCOIN_P2P_PORT} --bitcoin-data-dir=${MEMPOOL_BITCOIN_DATA_DIR} --mysql-host=${MEMPOOL_MYSQL_HOST} --mysql-port=${MEMPOOL_MYSQL_PORT} --mysql-database=${MEMPOOL_MYSQL_DATABASE} --mysql-username=${MEMPOOL_MYSQL_USERNAME} --mysql-password=${MEMPOOL_MYSQL_PASSWORD} --http-port=${MEMPOOL_HTTP_PORT} --api-port=${MEMPOOL_API_PORT} --enable-electrs=${MEMPOOL_ENABLE_ELECTRS} --electrs-host=${MEMPOOL_ELECTRS_HOST} --electrs-port=${MEMPOOL_ELECTRS_PORT}</PostArgs>
+
 </Container>

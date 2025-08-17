@@ -154,14 +154,7 @@ The app runs a Lightning Network node in a Docker container with optimized setti
         <Description>Maximum channel size in satoshis</Description>
       </Variable>
     </Environment>
-  <Config>
-    <ConfigFile>/mnt/user/appdata/umbrel-lightning/lightning.conf</ConfigFile>
-  </Config>
-  <ExtraParams></ExtraParams>
-  <Startup>
-    <Order>3</Order>
-    <Delay>20</Delay>
-  </Startup>
+
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -176,5 +169,5 @@ The app runs a Lightning Network node in a Docker container with optimized setti
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/lightning/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network=${LIGHTNING_NETWORK} --bitcoin-rpc-host=${LIGHTNING_BITCOIN_RPC_HOST} --bitcoin-rpc-port=${LIGHTNING_BITCOIN_RPC_PORT} --bitcoin-rpc-user=${LIGHTNING_BITCOIN_RPC_USER} --bitcoin-rpc-password=${LIGHTNING_BITCOIN_RPC_PASSWORD} --bitcoin-rpc-protocol=${LIGHTNING_BITCOIN_RPC_PROTOCOL} --alias=${LIGHTNING_ALIAS} --color=${LIGHTNING_COLOR} --web-port=${LIGHTNING_WEB_PORT} --p2p-port=${LIGHTNING_P2P_PORT} --rest-port=${LIGHTNING_REST_PORT} --log-level=${LIGHTNING_LOG_LEVEL} --autoclean-invoice=${LIGHTNING_AUTOCLEAN_INVOICE} --autoclean-invoice-expiry=${LIGHTNING_AUTOCLEAN_INVOICE_EXPIRY} --max-pending-channels=${LIGHTNING_MAX_PENDING_CHANNELS} --min-channel-size=${LIGHTNING_MIN_CHANNEL_SIZE} --max-channel-size=${LIGHTNING_MAX_CHANNEL_SIZE}</PostArgs>
+
 </Container>

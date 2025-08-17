@@ -175,14 +175,7 @@ The app runs a Monero daemon in a Docker container with optimized settings for h
       <Description>Log level (0-4, higher = more verbose)</Description>
           </Variable>
     </Environment>
-  <Config>
-    <ConfigFile>/mnt/user/appdata/umbrel-monero/monero.conf</ConfigFile>
-  </Config>
-  <ExtraParams></ExtraParams>
-  <Startup>
-    <Order>5</Order>
-    <Delay>30</Delay>
-  </Startup>
+
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -197,5 +190,5 @@ The app runs a Monero daemon in a Docker container with optimized settings for h
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/monero/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network=${MONERO_NETWORK} --rpc-bind-ip=${MONERO_RPC_BIND_IP} --rpc-bind-port=${MONERO_RPC_BIND_PORT} --p2p-bind-ip=${MONERO_P2P_BIND_IP} --p2p-bind-port=${MONERO_P2P_BIND_PORT} --zmq-rpc-bind-ip=${MONERO_ZMQ_RPC_BIND_IP} --zmq-rpc-bind-port=${MONERO_ZMQ_RPC_BIND_PORT} --zmq-pub-bind-ip=${MONERO_ZMQ_PUB_BIND_IP} --zmq-pub-bind-port=${MONERO_ZMQ_PUB_BIND_PORT} --rpc-login=${MONERO_RPC_LOGIN} --restricted-rpc=${MONERO_RESTRICTED_RPC} --disable-rpc-login=${MONERO_DISABLE_RPC_LOGIN} --sync-mode=${MONERO_SYNC_MODE} --prune=${MONERO_PRUNING} --db-salvage=${MONERO_DB_SALVAGE} --max-concurrency=${MONERO_MAX_CONCURRENCY} --prepare-multisig=${MONERO_PREPARE_MULTISIG} --offline=${MONERO_OFFLINE} --data-dir=${MONERO_DATA_DIR} --log-level=${MONERO_LOG_LEVEL}</PostArgs>
+
 </Container>
