@@ -10,13 +10,13 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
   <Project>https://github.com/getumbrel/umbrel-apps</Project>
-  <Overview>Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment. It provides a full Bitcoin node with RPC access and block validation capabilities.</Overview>
+  <Overview>Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment. It provides a full Bitcoin node with RPC access, block validation capabilities, and optional Tor/I2P privacy integration.</Overview>
   <Category>Blockchain</Category>
   <Description>Umbrel Bitcoin is a Bitcoin Core node that allows you to run your own Bitcoin node. This provides you with:
 
 - Full Bitcoin blockchain validation
 - RPC access for Bitcoin applications
-- Enhanced privacy and security
+- Enhanced privacy and security with optional Tor/I2P
 - Support for the Bitcoin network
 - Integration with Umbrel Electrs for wallet connectivity
 
@@ -44,12 +44,37 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
         <ContainerPort>18333</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
+      <Port>
+        <HostPort>9050</HostPort>
+        <ContainerPort>9050</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>9051</HostPort>
+        <ContainerPort>9051</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>7656</HostPort>
+        <ContainerPort>7656</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
     </Publish>
   </Networking>
   <Data>
     <Volume>
       <HostDir>/mnt/user/appdata/umbrel-bitcoin</HostDir>
       <ContainerDir>/home/umbrel/.bitcoin</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-bitcoin/tor</HostDir>
+      <ContainerDir>/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/umbrel-bitcoin/i2pd</HostDir>
+      <ContainerDir>/home/i2pd/data</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
   </Data>
@@ -68,7 +93,7 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
     </Variable>
     <Variable>
       <Name>BITCOIN_RPC_PASSWORD</Name>
-              <Value>moneyprintergobrrr</Value>
+      <Value>moneyprintergobrrr</Value>
       <Mode>rw</Mode>
       <Description>RPC password for Bitcoin Core (must match Electrs app - CHANGE THIS!)</Description>
     </Variable>
@@ -108,6 +133,84 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Mode>rw</Mode>
       <Description>Enable pruning (0=disabled, or size in MB)</Description>
     </Variable>
+    <Variable>
+      <Name>BITCOIN_DBCACHE</Name>
+      <Value>450</Value>
+      <Mode>rw</Mode>
+      <Description>Database cache size in MB (higher = faster sync, more RAM usage)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_MAXMEMPOOL</Name>
+      <Value>300</Value>
+      <Mode>rw</Mode>
+      <Description>Maximum mempool size in MB</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_MAXCONNECTIONS</Name>
+      <Value>125</Value>
+      <Mode>rw</Mode>
+      <Description>Maximum number of connections to other nodes</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_MAXUPLOADTARGET</Name>
+      <Value>5000</Value>
+      <Mode>rw</Mode>
+      <Description>Maximum upload target in MB per day</Description>
+    </Variable>
+    <Variable>
+      <Name>ENABLE_TOR</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Enable Tor privacy network integration (1=enabled, 0=disabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>ENABLE_I2P</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Enable I2P privacy network integration (1=enabled, 0=disabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_SOCKS_PORT</Name>
+      <Value>9050</Value>
+      <Mode>rw</Mode>
+      <Description>Tor SOCKS proxy port</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_CONTROL_PORT</Name>
+      <Value>9051</Value>
+      <Mode>rw</Mode>
+      <Description>Tor control port</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_CONTROL_PASSWORD</Name>
+      <Value>moneyprintergobrrr</Value>
+      <Mode>rw</Mode>
+      <Description>Tor control password (CHANGE THIS!)</Description>
+    </Variable>
+    <Variable>
+      <Name>I2P_SAM_PORT</Name>
+      <Value>7656</Value>
+      <Mode>rw</Mode>
+      <Description>I2P SAM protocol port</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_COINSTATSINDEX</Name>
+      <Value>1</Value>
+      <Mode>rw</Mode>
+      <Description>Enable coin stats index (1=enabled, 0=disabled)</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_MEMPOOLEXPIRY</Name>
+      <Value>336</Value>
+      <Mode>rw</Mode>
+      <Description>Mempool expiry in hours</Description>
+    </Variable>
+    <Variable>
+      <Name>BITCOIN_PAR</Name>
+      <Value>0</Value>
+      <Mode>rw</Mode>
+      <Description>Number of parallel script check threads (0=auto)</Description>
+    </Variable>
   </Environment>
   <Labels>
     <Label>
@@ -123,5 +226,5 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/bitcoin/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network=${BITCOIN_NETWORK} --rpcuser=${BITCOIN_RPC_USER} --rpcpassword=${BITCOIN_RPC_PASSWORD} --rpcbind=${BITCOIN_RPC_BIND} --rpcallowip=${BITCOIN_RPC_ALLOW_IP} --disablewallet=${BITCOIN_DISABLE_WALLET} --txindex=${BITCOIN_TXINDEX} --blockfilterindex=${BITCOIN_BLOCKFILTERINDEX} --prune=${BITCOIN_PRUNING}</PostArgs>
+  <PostArgs>--network=${BITCOIN_NETWORK} --rpcuser=${BITCOIN_RPC_USER} --rpcpassword=${BITCOIN_RPC_PASSWORD} --rpcbind=${BITCOIN_RPC_BIND} --rpcallowip=${BITCOIN_RPC_ALLOW_IP} --disablewallet=${BITCOIN_DISABLE_WALLET} --txindex=${BITCOIN_TXINDEX} --blockfilterindex=${BITCOIN_BLOCKFILTERINDEX} --prune=${BITCOIN_PRUNING} --dbcache=${BITCOIN_DBCACHE} --maxmempool=${BITCOIN_MAXMEMPOOL} --maxconnections=${BITCOIN_MAXCONNECTIONS} --maxuploadtarget=${BITCOIN_MAXUPLOADTARGET} --coinstatsindex=${BITCOIN_COINSTATSINDEX} --mempoolexpiry=${BITCOIN_MEMPOOLEXPIRY} --par=${BITCOIN_PAR}</PostArgs>
 </Container>

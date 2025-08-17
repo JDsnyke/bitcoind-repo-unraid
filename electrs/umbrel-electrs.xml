@@ -41,6 +41,11 @@ The app runs Electrs in a Docker container with optimized settings for home serv
         <ContainerPort>50002</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
+      <Port>
+        <HostPort>4224</HostPort>
+        <ContainerPort>4224</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
     </Publish>
   </Networking>
   <Data>
@@ -123,13 +128,55 @@ The app runs Electrs in a Docker container with optimized settings for home serv
       <Mode>rw</Mode>
       <Description>Index batch size for processing</Description>
     </Variable>
-    <Variable>
-      <Name>ELECTRS_INDEX_LIMIT</Name>
-      <Value>1000</Value>
-      <Mode>rw</Mode>
-      <Description>Index limit for queries</Description>
-    </Variable>
-  </Environment>
+          <Variable>
+        <Name>ELECTRS_INDEX_LIMIT</Name>
+        <Value>1000</Value>
+        <Mode>rw</Mode>
+        <Description>Index limit for queries</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_TIMESTAMP</Name>
+        <Value>1</Value>
+        <Mode>rw</Mode>
+        <Description>Include timestamps in responses (1=enabled, 0=disabled)</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_JSONRPC_IMPORT</Name>
+        <Value>1</Value>
+        <Mode>rw</Mode>
+        <Description>Enable JSON-RPC import methods (1=enabled, 0=disabled)</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_SERVE</Name>
+        <Value>1</Value>
+        <Mode>rw</Mode>
+        <Description>Enable serving mode (1=enabled, 0=disabled)</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_DAEMON_POLL_INTERVAL_MSECS</Name>
+        <Value>1000</Value>
+        <Mode>rw</Mode>
+        <Description>Daemon polling interval in milliseconds</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_DAEMON_RETRY_INTERVAL_MSECS</Name>
+        <Value>1000</Value>
+        <Mode>rw</Mode>
+        <Description>Daemon retry interval in milliseconds</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_DAEMON_TIMEOUT</Name>
+        <Value>30</Value>
+        <Mode>rw</Mode>
+        <Description>Daemon RPC timeout in seconds</Description>
+      </Variable>
+      <Variable>
+        <Name>ELECTRS_DAEMON_WAIT</Name>
+        <Value>1</Value>
+        <Mode>rw</Mode>
+        <Description>Wait for daemon to be ready (1=enabled, 0=disabled)</Description>
+      </Variable>
+    </Environment>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
@@ -144,5 +191,5 @@ The app runs Electrs in a Docker container with optimized settings for home serv
       <Value>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Value>
     </Label>
   </Labels>
-  <PostArgs>--network ${ELECTRS_NETWORK} --daemon-rpc-addr ${ELECTRS_DAEMON_RPC_ADDR} --daemon-rpc-user ${ELECTRS_DAEMON_RPC_USER} --daemon-rpc-pass ${ELECTRS_DAEMON_RPC_PASS} --daemon-p2p-addr ${ELECTRS_DAEMON_P2P_ADDR} --electrum-rpc-addr ${ELECTRS_ELECTRUM_RPC_ADDR} --electrum-rpc-addr-index ${ELECTRS_ELECTRUM_RPC_ADDR_INDEX} --http-addr ${ELECTRS_HTTP_ADDR} --verbosity ${ELECTRS_VERBOSITY} --monitoring-addr ${ELECTRS_MONITORING_ADDR} --db-dir ${ELECTRS_DB_DIR} --index-batch-size ${ELECTRS_INDEX_BATCH_SIZE} --index-limit ${ELECTRS_INDEX_LIMIT}</PostArgs>
+  <PostArgs>--network ${ELECTRS_NETWORK} --daemon-rpc-addr ${ELECTRS_DAEMON_RPC_ADDR} --daemon-rpc-user ${ELECTRS_DAEMON_RPC_USER} --daemon-rpc-pass ${ELECTRS_DAEMON_RPC_PASS} --daemon-p2p-addr ${ELECTRS_DAEMON_P2P_ADDR} --electrum-rpc-addr ${ELECTRS_ELECTRUM_RPC_ADDR} --electrum-rpc-addr-index ${ELECTRS_ELECTRUM_RPC_ADDR_INDEX} --http-addr ${ELECTRS_HTTP_ADDR} --verbosity ${ELECTRS_VERBOSITY} --monitoring-addr ${ELECTRS_MONITORING_ADDR} --db-dir ${ELECTRS_DB_DIR} --index-batch-size ${ELECTRS_INDEX_BATCH_SIZE} --index-limit ${ELECTRS_INDEX_LIMIT} --timestamp ${ELECTRS_TIMESTAMP} --jsonrpc-import ${ELECTRS_JSONRPC_IMPORT} --serve ${ELECTRS_SERVE} --daemon-poll-interval-msecs ${ELECTRS_DAEMON_POLL_INTERVAL_MSECS} --daemon-retry-interval-msecs ${ELECTRS_DAEMON_RETRY_INTERVAL_MSECS} --daemon-timeout ${ELECTRS_DAEMON_TIMEOUT} --daemon-wait ${ELECTRS_DAEMON_WAIT}</PostArgs>
 </Container>
