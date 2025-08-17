@@ -9,7 +9,7 @@ NETWORK=mainnet
 BITCOIN_HOST=umbrel-bitcoin
 BITCOIN_PORT=8332
 BITCOIN_USERNAME=umbrel
-BITCOIN_PASSWORD=changeme
+BITCOIN_PASSWORD=moneyprintergobrrr
 BITCOIN_P2P_HOST=umbrel-bitcoin
 BITCOIN_P2P_PORT=8333
 BITCOIN_DATA_DIR=/mnt/user/appdata/umbrel-bitcoin/.bitcoin
@@ -19,7 +19,7 @@ MYSQL_HOST=umbrel-mempool-db
 MYSQL_PORT=3306
 MYSQL_DATABASE=mempool
 MYSQL_USERNAME=mempool
-MYSQL_PASSWORD=changeme
+MYSQL_PASSWORD=moneyprintergobrrr
 
 # HTTP Server Configuration
 HTTP_PORT=3000

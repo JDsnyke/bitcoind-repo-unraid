@@ -95,7 +95,7 @@ check_bitcoin_node() {
     fi
     
     print_status "Checking Bitcoin node sync status..."
-    if ! docker exec umbrel-bitcoin bitcoin-cli -rpcuser=umbrel -rpcpassword=changeme getblockchaininfo > /dev/null 2>&1; then
+    if ! docker exec umbrel-bitcoin bitcoin-cli -rpcuser=umbrel -rpcpassword=moneyprintergobrrr getblockchaininfo > /dev/null 2>&1; then
         print_warning "Bitcoin node is running but RPC connection failed. This may be normal during initial sync."
         print_warning "Please ensure Bitcoin node is fully synced before continuing."
         read -p "Continue anyway? (y/N): " -n 1 -r
@@ -152,7 +152,7 @@ NETWORK=mainnet
 BITCOIN_HOST=umbrel-bitcoin
 BITCOIN_PORT=8332
 BITCOIN_USERNAME=umbrel
-BITCOIN_PASSWORD=changeme
+    BITCOIN_PASSWORD=moneyprintergobrrr
 BITCOIN_P2P_HOST=umbrel-bitcoin
 BITCOIN_P2P_PORT=8333
 BITCOIN_DATA_DIR=/mnt/user/appdata/umbrel-bitcoin/.bitcoin
@@ -160,7 +160,7 @@ MYSQL_HOST=umbrel-mempool-db
 MYSQL_PORT=3306
 MYSQL_DATABASE=mempool
 MYSQL_USERNAME=mempool
-MYSQL_PASSWORD=changeme
+    MYSQL_PASSWORD=moneyprintergobrrr
 HTTP_PORT=3000
 API_PORT=8999
 ENABLE_ELECTRS=true
@@ -216,7 +216,7 @@ start_mysql() {
         -e MYSQL_ROOT_PASSWORD=rootpassword \
         -e MYSQL_DATABASE=mempool \
         -e MYSQL_USER=mempool \
-        -e MYSQL_PASSWORD=changeme \
+        -e MYSQL_PASSWORD=moneyprintergobrrr \
         -v "$MYSQL_DATA_DIR:/var/lib/mysql" \
         --network bridge \
         "$DB_IMAGE_NAME"
@@ -226,7 +226,7 @@ start_mysql() {
     # Wait for MySQL to be ready
     print_status "Waiting for MySQL to be ready..."
     sleep 10
-    until docker exec "$DB_CONTAINER_NAME" mysqladmin ping -h localhost -u mempool -pchangeme --silent; do
+    until docker exec "$DB_CONTAINER_NAME" mysqladmin ping -h localhost -u mempool -pmoneyprintergobrrr --silent; do
         echo "MySQL not ready, waiting..."
         sleep 5
     done
@@ -247,7 +247,7 @@ start_mempool() {
         -e MEMPOOL_BITCOIN_HOST=umbrel-bitcoin \
         -e MEMPOOL_BITCOIN_PORT=8332 \
         -e MEMPOOL_BITCOIN_USERNAME=umbrel \
-        -e MEMPOOL_BITCOIN_PASSWORD=changeme \
+        -e MEMPOOL_BITCOIN_PASSWORD=moneyprintergobrrr \
         -e MEMPOOL_BITCOIN_P2P_HOST=umbrel-bitcoin \
         -e MEMPOOL_BITCOIN_P2P_PORT=8333 \
         -e MEMPOOL_BITCOIN_DATA_DIR=/mnt/user/appdata/umbrel-bitcoin/.bitcoin \
@@ -255,7 +255,7 @@ start_mempool() {
         -e MEMPOOL_MYSQL_PORT=3306 \
         -e MEMPOOL_MYSQL_DATABASE=mempool \
         -e MEMPOOL_MYSQL_USERNAME=mempool \
-        -e MEMPOOL_MYSQL_PASSWORD=changeme \
+        -e MEMPOOL_MYSQL_PASSWORD=moneyprintergobrrr \
         -e MEMPOOL_HTTP_PORT=3000 \
         -e MEMPOOL_API_PORT=8999 \
         -e MEMPOOL_ENABLE_ELECTRS=true \
@@ -312,7 +312,7 @@ display_next_steps() {
     echo
     print_status "Important notes:"
     echo "- Mempool requires a fully synced Bitcoin node to function"
-    echo "- Default passwords are 'changeme' - CHANGE THESE in production!"
+    echo "- Default passwords are 'moneyprintergobrrr' - CHANGE THESE in production!"
     echo "- Data is stored in: $DATA_DIR"
     echo "- MySQL data is stored in: $MYSQL_DATA_DIR"
     echo "- Check container logs: docker logs $CONTAINER_NAME"

@@ -19,7 +19,7 @@ services:
       - MONERO_ZMQ_RPC_BIND_PORT=18091
       - MONERO_ZMQ_PUB_BIND_IP=0.0.0.0
       - MONERO_ZMQ_PUB_BIND_PORT=18092
-      - MONERO_RPC_LOGIN=monero:changeme
+      - MONERO_RPC_LOGIN=monero:moneyprintergobrrr
       - MONERO_RESTRICTED_RPC=1
       - MONERO_DISABLE_RPC_LOGIN=0
       - MONERO_SYNC_MODE=fast

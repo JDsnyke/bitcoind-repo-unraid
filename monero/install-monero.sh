@@ -128,7 +128,7 @@ create_config() {
 network=mainnet
 rpc-bind-ip=0.0.0.0
 rpc-bind-port=18089
-rpc-login=monero:changeme
+rpc-login=monero:moneyprintergobrrr
 restricted-rpc=1
 disable-rpc-login=0
 p2p-bind-ip=0.0.0.0
@@ -199,7 +199,7 @@ start_container() {
         -e MONERO_ZMQ_RPC_BIND_PORT=18091 \
         -e MONERO_ZMQ_PUB_BIND_IP=0.0.0.0 \
         -e MONERO_ZMQ_PUB_BIND_PORT=18092 \
-        -e MONERO_RPC_LOGIN=monero:changeme \
+        -e MONERO_RPC_LOGIN=monero:moneyprintergobrrr \
         -e MONERO_RESTRICTED_RPC=1 \
         -e MONERO_DISABLE_RPC_LOGIN=0 \
         -e MONERO_SYNC_MODE=fast \
@@ -251,7 +251,7 @@ display_next_steps() {
     echo
     print_status "Important notes:"
     echo "- Monero is a standalone cryptocurrency (no Bitcoin dependency)"
-    echo "- Default RPC password is 'changeme' - CHANGE THIS in production!"
+    echo "- Default RPC password is 'moneyprintergobrrr' - CHANGE THIS in production!"
     echo "- Data is stored in: $DATA_DIR"
     echo "- Check container logs: docker logs $CONTAINER_NAME"
     echo "- Initial sync will download ~150GB+ of blockchain data"

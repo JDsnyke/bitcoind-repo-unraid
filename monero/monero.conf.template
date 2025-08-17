@@ -8,7 +8,7 @@ network=mainnet
 # RPC Configuration
 rpc-bind-ip=0.0.0.0
 rpc-bind-port=18089
-rpc-login=monero:changeme
+rpc-login=monero:moneyprintergobrrr
 restricted-rpc=1
 disable-rpc-login=0
 

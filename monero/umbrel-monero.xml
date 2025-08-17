@@ -110,7 +110,7 @@ The app runs a Monero daemon in a Docker container with optimized settings for h
     </Variable>
     <Variable>
       <Name>MONERO_RPC_LOGIN</Name>
-      <Value>monero:changeme</Value>
+              <Value>monero:moneyprintergobrrr</Value>
       <Mode>rw</Mode>
       <Description>RPC login credentials (username:password - CHANGE THIS!)</Description>
     </Variable>

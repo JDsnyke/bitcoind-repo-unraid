@@ -92,7 +92,7 @@ check_bitcoin_node() {
     fi
     
     print_status "Checking Bitcoin node sync status..."
-    if ! docker exec umbrel-bitcoin bitcoin-cli -rpcuser=umbrel -rpcpassword=changeme getblockchaininfo > /dev/null 2>&1; then
+    if ! docker exec umbrel-bitcoin bitcoin-cli -rpcuser=umbrel -rpcpassword=moneyprintergobrrr getblockchaininfo > /dev/null 2>&1; then
         print_warning "Bitcoin node is running but RPC connection failed. This may be normal during initial sync."
         print_warning "Please ensure Bitcoin node is fully synced before continuing."
         read -p "Continue anyway? (y/N): " -n 1 -r
@@ -132,7 +132,7 @@ network=bitcoin
 bitcoin-rpc-host=umbrel-bitcoin
 bitcoin-rpc-port=8332
 bitcoin-rpc-user=umbrel
-bitcoin-rpc-password=changeme
+bitcoin-rpc-password=moneyprintergobrrr
 bitcoin-rpc-protocol=http
 alias=Umbrel Lightning
 color=3399FF
@@ -189,7 +189,7 @@ start_container() {
         -e LIGHTNING_BITCOIN_RPC_HOST=umbrel-bitcoin \
         -e LIGHTNING_BITCOIN_RPC_PORT=8332 \
         -e LIGHTNING_BITCOIN_RPC_USER=umbrel \
-        -e LIGHTNING_BITCOIN_RPC_PASSWORD=changeme \
+        -e LIGHTNING_BITCOIN_RPC_PASSWORD=moneyprintergobrrr \
         -e LIGHTNING_BITCOIN_RPC_PROTOCOL=http \
         -e LIGHTNING_ALIAS="Umbrel Lightning" \
         -e LIGHTNING_COLOR=3399FF \
@@ -238,7 +238,7 @@ display_next_steps() {
     echo
     print_status "Important notes:"
     echo "- Lightning requires a fully synced Bitcoin node to function"
-    echo "- Default RPC password is 'changeme' - CHANGE THIS in production!"
+    echo "- Default RPC password is 'moneyprintergobrrr' - CHANGE THIS in production!"
     echo "- Data is stored in: $DATA_DIR"
     echo "- Check container logs: docker logs $CONTAINER_NAME"
     echo

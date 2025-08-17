@@ -71,7 +71,7 @@ The app runs Electrs in a Docker container with optimized settings for home serv
     </Variable>
     <Variable>
       <Name>ELECTRS_DAEMON_RPC_PASS</Name>
-      <Value>changeme</Value>
+              <Value>moneyprintergobrrr</Value>
       <Mode>rw</Mode>
       <Description>Bitcoin Core RPC password (must match Bitcoin node - CHANGE THIS!)</Description>
     </Variable>

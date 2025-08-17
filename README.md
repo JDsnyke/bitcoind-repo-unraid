@@ -4,9 +4,14 @@ This repository contains Community Application templates for running multiple Um
 
 ## Overview
 
-This repository provides five complementary blockchain applications:
+This repository provides five complementary blockchain applications with enhanced privacy and security:
 
-1. **Umbrel Bitcoin** - A full Bitcoin Core node for blockchain validation and RPC access
+**🔒 Privacy-First Design**: Bitcoin app includes built-in Tor and I2P integration for maximum privacy
+**🌐 Multiple Networks**: Support for mainnet, testnet, and regtest across all Bitcoin-based apps
+**📊 Real-time Monitoring**: Built-in monitoring and analytics for all applications
+**🔧 Easy Management**: Simple installation and configuration through Unraid Community Applications
+
+1. **Umbrel Bitcoin** - A full Bitcoin Core node with Tor and I2P privacy integration
 2. **Umbrel Electrs** - A fast Electrum server implementation for wallet connectivity
 3. **Umbrel Lightning** - A Lightning Network node for fast Bitcoin transactions
 4. **Umbrel Mempool** - A Bitcoin mempool explorer for transaction monitoring
@@ -22,8 +27,6 @@ This repository provides five complementary blockchain applications:
 - **Docker** must be enabled and configured
 - **User permissions** follow Unraid conventions (`nobody:users`)
 
-📖 **See [UNRAID_SETUP.md](UNRAID_SETUP.md) for comprehensive Unraid-specific setup instructions.**
-
 ## Repository Structure
 
 ```
@@ -34,7 +37,8 @@ bitcoind-repo-unraid/
 │   ├── Dockerfile             # Container definition
 │   ├── docker-compose.yml     # Local testing setup
 │   ├── bitcoin.conf.template  # Configuration template
-│   └── install-unraid.sh     # Installation script (requires root)
+│   ├── torrc.template         # Tor configuration template
+│   └── install-bitcoin.sh     # Installation script (requires root)
 ├── electrs/                   # Umbrel Electrs app
 │   ├── umbrel-electrs.xml    # Community Application template
 │   ├── README.md             # Electrs app documentation
@@ -64,9 +68,36 @@ bitcoind-repo-unraid/
 │   ├── monero.conf.template # Configuration template
 │   └── install-monero.sh    # Installation script (requires root)
 ├── README.md                 # This file - main documentation
-├── UNRAID_SETUP.md          # Unraid-specific setup guide
 ├── LICENSE                   # MIT license
 └── .gitignore               # Git ignore file (includes Unraid paths)
+```
+
+### Unraid File Structure
+
+The apps store data in the Unraid `appdata` share:
+```
+/mnt/user/appdata/
+├── umbrel-bitcoin/          # Bitcoin blockchain + Tor/I2P data
+│   ├── .bitcoin/            # Bitcoin Core data
+│   ├── bitcoin.conf         # Bitcoin configuration
+│   ├── tor/                 # Tor data and hidden services
+│   └── i2pd/                # I2P data
+├── umbrel-electrs/          # Electrs database and config
+├── umbrel-lightning/        # Lightning data
+├── umbrel-mempool/          # Mempool database
+└── umbrel-monero/           # Monero blockchain data
+```
+
+**Note**: Each app includes a `docker-compose.yml` file for local testing and development. These files are **not** for production Unraid use - they're designed for developers to test the apps locally before creating Community Application templates.
+
+Community Application templates are stored in:
+```
+/boot/config/plugins/dockerMan/templates-user/
+├── umbrel-bitcoin.xml
+├── umbrel-electrs.xml
+├── umbrel-lightning.xml
+├── umbrel-mempool.xml
+└── umbrel-monero.xml
 ```
 
 ## Quick Start
@@ -83,6 +114,12 @@ bitcoind-repo-unraid/
   - Mempool: ~20-100GB (mainnet), ~10-50GB (testnet)
   - Monero: ~150GB+ (mainnet), ~50GB+ (testnet)
 
+### Unraid System Requirements
+- **Operating System**: Unraid 6.8+ (recommended: 6.12+)
+- **Hardware**: x86_64 with virtualization support, minimum 4GB RAM (8GB+ recommended)
+- **Storage**: SSD cache drive recommended for better performance
+- **Network**: Port forwarding configured for external access (optional)
+
 ### Installation Order
 
 **⚠️ IMPORTANT: You must install the apps in this specific order:**
@@ -93,6 +130,8 @@ bitcoind-repo-unraid/
    - Umbrel Lightning (requires Bitcoin)
    - Umbrel Mempool (requires Bitcoin, optional Electrs)
    - Umbrel Monero (standalone, no dependencies)
+
+**🔒 Security Note**: All apps use "moneyprintergobrrr" as the default password. **CHANGE THIS** in production!
 
 ## Installation
 
@@ -117,6 +156,22 @@ bitcoind-repo-unraid/
    ```
    - Go to **Apps** tab in Unraid WebGUI
    - Install desired apps and configure settings
+
+### Method 2: Docker Tab (Manual Installation)
+
+For advanced users who want full control over container configuration:
+
+#### Bitcoin Node Setup
+- **Name**: `umbrel-bitcoin`
+- **Repository**: `getumbrel/bitcoin:latest`
+- **Ports**: `8332:8332` (RPC), `8333:8333` (P2P), `9050:9050` (Tor), `9051:9051` (Tor Control), `7656:7656` (I2P)
+- **Volume**: `/mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin`
+- **Environment Variables**: Basic Bitcoin configuration (see Bitcoin README for Tor/I2P setup)
+
+**Note**: The Bitcoin app includes Tor and I2P privacy services that run automatically:
+- **Tor Container**: SOCKS proxy (port 9050) and control (port 9051)
+- **I2P Container**: I2P SAM protocol (port 7656)
+- **Hidden Services**: Automatic creation of onion and I2P addresses
 
 ### Method 2: Docker Tab (Alternative)
 
@@ -220,9 +275,10 @@ For users installing through the **Docker** tab, here are the key settings for e
 |---------|-------|
 | **Name** | `umbrel-bitcoin` |
 | **Repository** | `getumbrel/bitcoin:latest` |
-| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333` |
+| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333`, `9050:9050`, `9051:9051`, `7656:7656` |
 | **Volume** | `/mnt/user/appdata/umbrel-bitcoin:/home/umbrel/.bitcoin` |
 | **Network** | Bridge |
+| **Note** | Includes Tor and I2P privacy services |
 
 ### Electrs Server
 | Setting | Value |
@@ -486,6 +542,35 @@ curl -X POST http://your_server_ip:18089/json_rpc \
 - **Lightning Docs**: [Lightning Network](https://lightning.network/)
 - **Mempool Docs**: [Mempool.space](https://mempool.space/)
 - **Monero Docs**: [Monero Documentation](https://www.getmonero.org/resources/user-guides/)
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Container Won't Start**:
+   - Check Docker logs: `docker logs umbrel-bitcoin`
+   - Verify storage permissions: `chown -R nobody:users /mnt/user/appdata/umbrel-bitcoin`
+   - Ensure sufficient disk space
+
+2. **Tor/I2P Services Not Working**:
+   - Check if Tor container is running: `docker ps | grep tor`
+   - Verify I2P container status: `docker ps | grep i2pd`
+   - Check port mappings in Unraid Docker tab
+
+3. **Bitcoin Sync Issues**:
+   - Monitor sync progress through RPC calls
+   - Check network connectivity and firewall settings
+   - Verify storage performance (SSD recommended)
+
+4. **Permission Errors**:
+   - Fix appdata permissions: `chown -R nobody:users /mnt/user/appdata/`
+   - Ensure proper file ownership for all app directories
+
+### Getting Help
+
+- **GitHub Issues**: [Repository Issues](https://github.com/your-repo/issues)
+- **Unraid Forums**: [Community Applications Support](https://forums.unraid.net/forum/68-community-applications/)
+- **Bitcoin Documentation**: [Bitcoin Core Documentation](https://bitcoin.org/en/developer-documentation)
 
 ## Contributing
 

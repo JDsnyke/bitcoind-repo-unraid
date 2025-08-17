@@ -77,7 +77,7 @@ The app runs a Lightning Network node in a Docker container with optimized setti
     </Variable>
     <Variable>
       <Name>LIGHTNING_BITCOIN_RPC_PASSWORD</Name>
-      <Value>changeme</Value>
+              <Value>moneyprintergobrrr</Value>
       <Mode>rw</Mode>
       <Description>Bitcoin Core RPC password (must match Bitcoin node - CHANGE THIS!)</Description>
     </Variable>

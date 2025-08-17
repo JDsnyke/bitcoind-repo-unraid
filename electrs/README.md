@@ -55,7 +55,7 @@ Umbrel Electrs is a fast, lightweight Bitcoin Electrum server implementation wri
 ```bash
 # First install Bitcoin node
 cd ../bitcoin
-./install-unraid.sh
+./install-bitcoin.sh
 
 # Wait for Bitcoin sync, then install Electrs
 cd ../electrs

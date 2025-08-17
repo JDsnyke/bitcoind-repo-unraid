@@ -9,7 +9,7 @@ network=bitcoin
 bitcoin-rpc-host=umbrel-bitcoin
 bitcoin-rpc-port=8332
 bitcoin-rpc-user=umbrel
-bitcoin-rpc-password=changeme
+bitcoin-rpc-password=moneyprintergobrrr
 bitcoin-rpc-protocol=http
 
 # Lightning Node Settings

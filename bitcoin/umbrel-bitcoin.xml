@@ -68,7 +68,7 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
     </Variable>
     <Variable>
       <Name>BITCOIN_RPC_PASSWORD</Name>
-      <Value>changeme</Value>
+              <Value>moneyprintergobrrr</Value>
       <Mode>rw</Mode>
       <Description>RPC password for Bitcoin Core (must match Electrs app - CHANGE THIS!)</Description>
     </Variable>

@@ -63,7 +63,7 @@ Umbrel Mempool is a Bitcoin mempool explorer that provides real-time transaction
 ```bash
 # First install Bitcoin node
 cd ../bitcoin
-sudo ./install-unraid.sh
+sudo ./install-bitcoin.sh
 
 # Optional: Install Electrs
 cd ../electrs

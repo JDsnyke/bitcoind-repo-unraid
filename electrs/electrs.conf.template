@@ -9,7 +9,7 @@ network = "bitcoin"
 # Bitcoin Core Connection
 daemon_rpc_addr = "bitcoin:8332"
 daemon_rpc_user = "umbrel"
-daemon_rpc_pass = "changeme"
+daemon_rpc_pass = "moneyprintergobrrr"
 daemon_p2p_addr = "bitcoin:8333"
 
 # Electrum Protocol

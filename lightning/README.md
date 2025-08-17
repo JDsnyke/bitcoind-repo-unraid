@@ -56,7 +56,7 @@ Umbrel Lightning is a Lightning Network node implementation that provides fast, 
 ```bash
 # First install Bitcoin node
 cd ../bitcoin
-sudo ./install-unraid.sh
+sudo ./install-bitcoin.sh
 
 # Wait for Bitcoin sync, then install Lightning
 cd ../lightning

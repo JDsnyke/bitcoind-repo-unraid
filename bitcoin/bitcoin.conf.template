@@ -8,7 +8,7 @@ network=mainnet
 
 # RPC Configuration
 rpcuser=umbrel
-rpcpassword=changeme
+rpcpassword=moneyprintergobrrr
 rpcbind=0.0.0.0
 rpcallowip=0.0.0.0/0
 rpcport=8332
@@ -20,6 +20,16 @@ listen=1
 listenonion=1
 maxconnections=125
 maxuploadtarget=5000
+
+# Tor Configuration
+proxy=127.0.0.1:9050
+onion=127.0.0.1:9050
+torcontrol=127.0.0.1:9051
+torpassword=moneyprintergobrrr
+listenonion=1
+
+# I2P Configuration
+i2psam=127.0.0.1:7656
 
 # Wallet Configuration
 disablewallet=1
@@ -45,6 +55,7 @@ par=0
 debug=rpc
 debug=net
 debug=tor
+debug=i2p
 logips=1
 
 # Security Configuration

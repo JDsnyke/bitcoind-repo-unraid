@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Umbrel Bitcoin Installation Script for Unraid
-# This script helps install the Umbrel Bitcoin container on Unraid manually
+# This script helps install the Umbrel Bitcoin container with Tor and I2P privacy services on Unraid manually
 
 set -e
 
@@ -55,6 +55,7 @@ echo "  App Name: ${APP_NAME}"
 echo "  Data Directory: ${DATA_DIR}"
 echo "  Container Name: ${CONTAINER_NAME}"
 echo "  Image: ${IMAGE_NAME}"
+echo "  Privacy Services: Tor and I2P included"
 echo ""
 
 # Check if appdata share exists
@@ -77,7 +78,7 @@ if [ ! -f "${DATA_DIR}/bitcoin.conf" ]; then
 # Bitcoin Core Configuration
 network=mainnet
 rpcuser=umbrel
-rpcpassword=changeme
+rpcpassword=moneyprintergobrrr
 rpcbind=0.0.0.0
 rpcallowip=0.0.0.0/0
 rpcport=8332
@@ -89,11 +90,22 @@ blockfilterindex=1
 prune=0
 dbcache=450
 maxmempool=300
+
+# Tor Configuration
+proxy=127.0.0.1:9050
+onion=127.0.0.1:9050
+torcontrol=127.0.0.1:9051
+torpassword=moneyprintergobrrr
+listenonion=1
+
+# I2P Configuration
+i2psam=127.0.0.1:7656
 EOF
     chown nobody:users "${DATA_DIR}/bitcoin.conf"
     chmod 644 "${DATA_DIR}/bitcoin.conf"
     echo "Created ${DATA_DIR}/bitcoin.conf"
     echo "IMPORTANT: Change the rpcpassword in bitcoin.conf!"
+    echo "Note: Tor and I2P configuration included for privacy"
 fi
 
 # Pull the Docker image
@@ -120,7 +132,7 @@ docker run -d \
     -v "${DATA_DIR}:/home/umbrel/.bitcoin" \
     -e BITCOIN_NETWORK=mainnet \
     -e BITCOIN_RPC_USER=umbrel \
-    -e BITCOIN_RPC_PASSWORD=changeme \
+          -e BITCOIN_RPC_PASSWORD=moneyprintergobrrr \
     -e BITCOIN_RPC_BIND=0.0.0.0 \
     -e BITCOIN_RPC_ALLOW_IP=0.0.0.0/0 \
     -e BITCOIN_DISABLE_WALLET=1 \

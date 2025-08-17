@@ -14,7 +14,7 @@ services:
       - ELECTRS_NETWORK=bitcoin
       - ELECTRS_DAEMON_RPC_ADDR=umbrel-bitcoin:8332
       - ELECTRS_DAEMON_RPC_USER=umbrel
-      - ELECTRS_DAEMON_RPC_PASS=changeme
+      - ELECTRS_DAEMON_RPC_PASS=moneyprintergobrrr
       - ELECTRS_DAEMON_P2P_ADDR=umbrel-bitcoin:8333
       - ELECTRS_ELECTRUM_RPC_ADDR=0.0.0.0:50001
       - ELECTRS_ELECTRUM_RPC_ADDR_INDEX=0.0.0.0:50002
@@ -47,7 +47,7 @@ services:
     environment:
       - BITCOIN_NETWORK=mainnet
       - BITCOIN_RPC_USER=umbrel
-      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_PASSWORD=moneyprintergobrrr
       - BITCOIN_RPC_BIND=0.0.0.0
       - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
       - BITCOIN_DISABLE_WALLET=1

@@ -75,7 +75,7 @@ if [ -n "$BITCOIN_CONTAINER" ]; then
     
     # Check if Bitcoin node is synced
     echo "Checking Bitcoin node sync status..."
-    if docker exec "${BITCOIN_CONTAINER}" bitcoin-cli -rpcuser=umbrel -rpcpassword=changeme getblockchaininfo >/dev/null 2>&1; then
+    if docker exec "${BITCOIN_CONTAINER}" bitcoin-cli -rpcuser=umbrel -rpcpassword=moneyprintergobrrr getblockchaininfo >/dev/null 2>&1; then
         echo "Bitcoin node is accessible and responding to RPC calls."
     else
         echo "Warning: Bitcoin node may not be fully synced or accessible."
@@ -108,7 +108,7 @@ if [ ! -f "${DATA_DIR}/electrs.conf" ]; then
 network = "bitcoin"
 daemon_rpc_addr = "${BITCOIN_RPC_ADDR}"
 daemon_rpc_user = "umbrel"
-daemon_rpc_pass = "changeme"
+daemon_rpc_pass = "moneyprintergobrrr"
 daemon_p2p_addr = "${BITCOIN_P2P_ADDR}"
 electrum_rpc_addr = "0.0.0.0:50001"
 electrum_rpc_addr_index = "0.0.0.0:50002"
@@ -150,7 +150,7 @@ docker run -d \
     -e ELECTRS_NETWORK=bitcoin \
     -e ELECTRS_DAEMON_RPC_ADDR="${BITCOIN_RPC_ADDR}" \
     -e ELECTRS_DAEMON_RPC_USER=umbrel \
-    -e ELECTRS_DAEMON_RPC_PASS=changeme \
+          -e ELECTRS_DAEMON_RPC_PASS=moneyprintergobrrr \
     -e ELECTRS_DAEMON_P2P_ADDR="${BITCOIN_P2P_ADDR}" \
     -e ELECTRS_ELECTRUM_RPC_ADDR=0.0.0.0:50001 \
     -e ELECTRS_ELECTRUM_RPC_ADDR_INDEX=0.0.0.0:50002 \

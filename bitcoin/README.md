@@ -11,6 +11,9 @@ Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment on Unraid ser
 - **Full Bitcoin Node**: Complete Bitcoin blockchain validation
 - **RPC Access**: Programmatic access to Bitcoin Core functionality
 - **Multiple Networks**: Support for mainnet, testnet, and regtest
+- **Tor Integration**: Built-in Tor daemon for privacy and hidden services
+- **I2P Support**: I2P network integration for additional privacy layers
+- **Hidden Services**: Onion and I2P hidden services for P2P and RPC
 - **Optimized Storage**: Configurable pruning and indexing options
 - **Easy Management**: Simple installation and configuration through Unraid Community Applications
 
@@ -38,7 +41,7 @@ Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment on Unraid ser
    - Configure the following settings:
      - **Network**: Choose mainnet, testnet, or regtest
      - **RPC Username**: Default is "umbrel"
-     - **RPC Password**: **IMPORTANT**: Change from default "changeme"
+     - **RPC Password**: **IMPORTANT**: Change from default "moneyprintergobrrr"
      - **Storage Path**: Default is `/mnt/user/appdata/umbrel-bitcoin`
    - Click **Apply** to start the container
 
@@ -46,8 +49,10 @@ Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment on Unraid ser
 
 Use the provided installation script:
 ```bash
-./install-unraid.sh
+./install-bitcoin.sh
 ```
+
+
 
 ## Configuration
 
@@ -57,7 +62,7 @@ Use the provided installation script:
 |----------|---------|-------------|
 | `BITCOIN_NETWORK` | mainnet | Bitcoin network (mainnet, testnet, or regtest) |
 | `BITCOIN_RPC_USER` | umbrel | RPC username for Bitcoin Core |
-| `BITCOIN_RPC_PASSWORD` | changeme | RPC password (CHANGE THIS!) |
+| `BITCOIN_RPC_PASSWORD` | moneyprintergobrrr | RPC password (CHANGE THIS!) |
 | `BITCOIN_RPC_BIND` | 0.0.0.0 | RPC bind address |
 | `BITCOIN_RPC_ALLOW_IP` | 0.0.0.0/0 | Allowed IPs for RPC access |
 | `BITCOIN_DISABLE_WALLET` | 1 | Disable wallet functionality |
@@ -73,6 +78,9 @@ Use the provided installation script:
 | 8333 | TCP | Bitcoin P2P (mainnet) |
 | 18332 | TCP | Bitcoin RPC (testnet) |
 | 18333 | TCP | Bitcoin P2P (testnet) |
+| 9050 | TCP | Tor SOCKS proxy |
+| 9051 | TCP | Tor control port |
+| 7656 | TCP | I2P SAM protocol |
 
 ### Storage
 
@@ -81,6 +89,24 @@ The app stores Bitcoin blockchain data in `/mnt/user/appdata/umbrel-bitcoin` by 
 - Configuration files
 - Logs
 - Indexes
+- Tor configuration and data
+- I2P configuration and data
+
+### Privacy Features
+
+#### Tor Integration
+- **SOCKS Proxy**: Available on port 9050
+- **Control Port**: Available on port 9051 (password: moneyprintergobrrr)
+- **Hidden Services**: Automatic creation of onion addresses for P2P and RPC
+- **Network Privacy**: All Bitcoin traffic can be routed through Tor
+
+#### I2P Integration
+- **SAM Protocol**: Available on port 7656
+- **Network Privacy**: Alternative privacy network for Bitcoin connections
+- **Hidden Services**: I2P hidden service support for additional privacy
+
+#### Configuration
+Tor and I2P are automatically configured and started with the Bitcoin node. The services run in separate containers and are managed automatically.
 
 ## Usage
 

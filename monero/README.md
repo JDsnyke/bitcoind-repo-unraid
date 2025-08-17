@@ -47,7 +47,7 @@ Umbrel Monero is a Monero (XMR) node implementation that provides privacy-focuse
 
 Use the provided installation script:
 ```bash
-sudo ./install-unraid.sh
+sudo ./install-monero.sh
 ```
 
 ## Configuration

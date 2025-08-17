@@ -12,7 +12,7 @@ services:
       - MEMPOOL_BITCOIN_HOST=umbrel-bitcoin
       - MEMPOOL_BITCOIN_PORT=8332
       - MEMPOOL_BITCOIN_USERNAME=umbrel
-      - MEMPOOL_BITCOIN_PASSWORD=changeme
+      - MEMPOOL_BITCOIN_PASSWORD=moneyprintergobrrr
       - MEMPOOL_BITCOIN_P2P_HOST=umbrel-bitcoin
       - MEMPOOL_BITCOIN_P2P_PORT=8333
       - MEMPOOL_BITCOIN_DATA_DIR=/mnt/user/appdata/umbrel-bitcoin/.bitcoin
@@ -20,7 +20,7 @@ services:
       - MEMPOOL_MYSQL_PORT=3306
       - MEMPOOL_MYSQL_DATABASE=mempool
       - MEMPOOL_MYSQL_USERNAME=mempool
-      - MEMPOOL_MYSQL_PASSWORD=changeme
+      - MEMPOOL_MYSQL_PASSWORD=moneyprintergobrrr
       - MEMPOOL_HTTP_PORT=3000
       - MEMPOOL_API_PORT=8999
       - MEMPOOL_ENABLE_ELECTRS=true
@@ -47,7 +47,7 @@ services:
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=mempool
       - MYSQL_USER=mempool
-      - MYSQL_PASSWORD=changeme
+      - MYSQL_PASSWORD=moneyprintergobrrr
     volumes:
       - ./mysql-data:/var/lib/mysql
       # Unraid-specific volume mapping (commented out for local testing)
@@ -70,7 +70,7 @@ services:
     environment:
       - BITCOIN_NETWORK=bitcoin
       - BITCOIN_RPC_USER=umbrel
-      - BITCOIN_RPC_PASSWORD=changeme
+      - BITCOIN_RPC_PASSWORD=moneyprintergobrrr
       - BITCOIN_RPC_BIND=0.0.0.0:8332
       - BITCOIN_RPC_ALLOW_IP=0.0.0.0/0
       - BITCOIN_DISABLE_WALLET=0
@@ -100,7 +100,7 @@ services:
       - ELECTRS_NETWORK=bitcoin
       - ELECTRS_DAEMON_RPC_ADDR=umbrel-bitcoin:8332
       - ELECTRS_DAEMON_RPC_USER=umbrel
-      - ELECTRS_DAEMON_RPC_PASS=changeme
+      - ELECTRS_DAEMON_RPC_PASS=moneyprintergobrrr
       - ELECTRS_DAEMON_P2P_ADDR=umbrel-bitcoin:8333
       - ELECTRS_ELECTRUM_RPC_ADDR=0.0.0.0:50001
       - ELECTRS_ELECTRUM_RPC_ADDR_INDEX=0.0.0.0:50002
