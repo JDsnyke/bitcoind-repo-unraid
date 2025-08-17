@@ -153,8 +153,16 @@ The app runs a mempool explorer in a Docker container with optimized settings fo
       <Value>50001</Value>
       <Mode>rw</Mode>
       <Description>Electrs port</Description>
-    </Variable>
-  </Environment>
+          </Variable>
+    </Environment>
+  <Config>
+    <ConfigFile>/mnt/user/appdata/umbrel-mempool/mempool.conf</ConfigFile>
+  </Config>
+  <ExtraParams></ExtraParams>
+  <Startup>
+    <Order>4</Order>
+    <Delay>25</Delay>
+  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>

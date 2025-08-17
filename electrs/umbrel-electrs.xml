@@ -177,6 +177,14 @@ The app runs Electrs in a Docker container with optimized settings for home serv
         <Description>Wait for daemon to be ready (1=enabled, 0=disabled)</Description>
       </Variable>
     </Environment>
+  <Config>
+    <ConfigFile>/mnt/user/appdata/umbrel-electrs/electrs.conf</ConfigFile>
+  </Config>
+  <ExtraParams></ExtraParams>
+  <Startup>
+    <Order>2</Order>
+    <Delay>15</Delay>
+  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>

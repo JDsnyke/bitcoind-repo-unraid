@@ -154,6 +154,14 @@ The app runs a Lightning Network node in a Docker container with optimized setti
         <Description>Maximum channel size in satoshis</Description>
       </Variable>
     </Environment>
+  <Config>
+    <ConfigFile>/mnt/user/appdata/umbrel-lightning/lightning.conf</ConfigFile>
+  </Config>
+  <ExtraParams></ExtraParams>
+  <Startup>
+    <Order>3</Order>
+    <Delay>20</Delay>
+  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>

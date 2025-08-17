@@ -212,6 +212,15 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Description>Number of parallel script check threads (0=auto)</Description>
     </Variable>
   </Environment>
+  <Config>
+    <ConfigFile>/mnt/user/appdata/umbrel-bitcoin/bitcoin.conf</ConfigFile>
+    <ConfigFile>/mnt/user/appdata/umbrel-bitcoin/torrc</ConfigFile>
+  </Config>
+  <ExtraParams></ExtraParams>
+  <Startup>
+    <Order>1</Order>
+    <Delay>10</Delay>
+  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>

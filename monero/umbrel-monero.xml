@@ -173,8 +173,16 @@ The app runs a Monero daemon in a Docker container with optimized settings for h
       <Value>1</Value>
       <Mode>rw</Mode>
       <Description>Log level (0-4, higher = more verbose)</Description>
-    </Variable>
-  </Environment>
+          </Variable>
+    </Environment>
+  <Config>
+    <ConfigFile>/mnt/user/appdata/umbrel-monero/monero.conf</ConfigFile>
+  </Config>
+  <ExtraParams></ExtraParams>
+  <Startup>
+    <Order>5</Order>
+    <Delay>30</Delay>
+  </Startup>
   <Labels>
     <Label>
       <Key>com.unraid.docker.managed</Key>
