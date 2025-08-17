@@ -240,7 +240,7 @@ start_mempool() {
     docker run -d \
         --name "$CONTAINER_NAME" \
         --restart unless-stopped \
-        -p 3000:3000 \
+        -p 3003:3000 \
         -p 8999:8999 \
         -v "$DATA_DIR:/app/mempool" \
         -e MEMPOOL_NETWORK=mainnet \
@@ -306,7 +306,7 @@ display_next_steps() {
     echo
     print_status "Next steps:"
     echo "1. Wait for Mempool to fully sync (this may take some time)"
-    echo "2. Access the web interface: http://your_server_ip:3000"
+    echo "2. Access the web interface: http://your_server_ip:3003"
     echo "3. Access the REST API: http://your_server_ip:8999"
     echo "4. Check MySQL database: umbrel-mempool-db container"
     echo

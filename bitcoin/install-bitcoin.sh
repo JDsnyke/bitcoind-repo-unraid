@@ -121,7 +121,8 @@ docker run -d \
     -p 8333:8333 \
     -p 18332:18332 \
     -p 18333:18333 \
-    -v "${DATA_DIR}:/home/umbrel/.bitcoin" \
+    -p 3000:3000 \
+    -v "${DATA_DIR}:/data" \
     -e BITCOIN_NETWORK=mainnet \
     -e BITCOIN_RPC_USER=umbrel \
           -e BITCOIN_RPC_PASSWORD=moneyprintergobrrr \
@@ -152,7 +153,8 @@ if docker ps --format "table {{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
     echo "1. Change the RPC password in ${DATA_DIR}/bitcoin.conf"
     echo "2. Restart the container: docker restart ${CONTAINER_NAME}"
     echo "3. Monitor logs: docker logs -f ${CONTAINER_NAME}"
-    echo "4. Access RPC at: http://YOUR_SERVER_IP:8332"
+echo "4. Access Web UI at: http://YOUR_SERVER_IP:3000"
+echo "5. Access RPC at: http://YOUR_SERVER_IP:8332"
     echo ""
     echo "For Community Applications integration, copy umbrel-bitcoin.xml to:"
     echo "/boot/config/plugins/dockerMan/templates-user/"

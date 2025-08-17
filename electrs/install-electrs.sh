@@ -142,7 +142,7 @@ echo "Creating and starting container..."
 docker run -d \
     --name "${CONTAINER_NAME}" \
     --restart unless-stopped \
-    -p 3000:3000 \
+    -p 3001:3000 \
     -p 50001:50001 \
     -p 50002:50002 \
     -p 4224:4224 \
@@ -181,7 +181,7 @@ if docker ps --format "table {{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
     echo "1. Change the RPC password in ${DATA_DIR}/electrs.conf"
     echo "2. Restart the container: docker restart ${CONTAINER_NAME}"
     echo "3. Monitor logs: docker logs -f ${CONTAINER_NAME}"
-    echo "4. Access HTTP API at: http://YOUR_SERVER_IP:3000"
+    echo "4. Access HTTP API at: http://YOUR_SERVER_IP:3001"
     echo "5. Connect Electrum wallets to: YOUR_SERVER_IP:50001"
     echo ""
     echo "For Community Applications integration, copy umbrel-electrs.xml to:"

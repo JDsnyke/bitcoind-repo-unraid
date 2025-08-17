@@ -10,6 +10,7 @@ services:
       - "8333:8333"  # Bitcoin P2P (mainnet)
       - "18332:18332"  # Bitcoin RPC (testnet)
       - "18333:18333"  # Bitcoin P2P (testnet)
+      - "3000:3000"  # Web UI
     volumes:
       - ./data:/data
       # Unraid-specific volume mapping (uncomment for production use)

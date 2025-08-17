@@ -5,7 +5,7 @@
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/lightning</Registry>
   <BaseImage>alpine:3.18</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/lightning/icon.png</Icon>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <WebUI>http://[IP]:[PORT:3002]</WebUI>
   <Shell>ash</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
@@ -27,7 +27,7 @@ The app runs a Lightning Network node in a Docker container with optimized setti
     <Mode>bridge</Mode>
     <Publish>
       <Port>
-        <HostPort>3000</HostPort>
+        <HostPort>3002</HostPort>
         <ContainerPort>3000</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>

@@ -5,7 +5,7 @@
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/electrs</Registry>
   <BaseImage>rust:1.70-slim</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/electrs/icon.png</Icon>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <WebUI>http://[IP]:[PORT:3001]</WebUI>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
@@ -27,7 +27,7 @@ The app runs Electrs in a Docker container with optimized settings for home serv
     <Mode>bridge</Mode>
     <Publish>
       <Port>
-        <HostPort>3000</HostPort>
+        <HostPort>3001</HostPort>
         <ContainerPort>3000</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>

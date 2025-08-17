@@ -5,7 +5,7 @@ services:
     image: lightninglabs/lnd:v0.19.2-beta@sha256:dd113dff920c309bf5c4af6a37d912f379dc24c51f266a2c878c12d20501798b
     container_name: umbrel-lightning
     ports:
-      - "3000:3000"  # Web interface
+      - "3002:3000"  # Web interface
       - "9735:9735"  # Lightning P2P
       - "8080:8080"  # REST API
     environment:

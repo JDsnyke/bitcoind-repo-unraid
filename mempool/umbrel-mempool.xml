@@ -5,7 +5,7 @@
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/mempool</Registry>
   <BaseImage>node:18-alpine</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/mempool/icon.png</Icon>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <WebUI>http://[IP]:[PORT:3003]</WebUI>
   <Shell>ash</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
@@ -27,7 +27,7 @@ The app runs a mempool explorer in a Docker container with optimized settings fo
     <Mode>bridge</Mode>
     <Publish>
       <Port>
-        <HostPort>3000</HostPort>
+        <HostPort>3003</HostPort>
         <ContainerPort>3000</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>

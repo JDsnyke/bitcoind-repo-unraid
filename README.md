@@ -181,6 +181,7 @@ For advanced users who want full control over container configuration:
      - `8333:8333` (P2P)
      - `18332:18332` (testnet RPC)
      - `18333:18333` (testnet P2P)
+     - `3000:3000` (Web UI)
    - **Volumes**: `/mnt/user/appdata/umbrel-bitcoin:/data`
    - **Environment Variables**:
      - `BITCOIN_NETWORK=bitcoin`
@@ -211,7 +212,7 @@ For advanced users who want full control over container configuration:
    **Lightning**:
    - **Name**: `umbrel-lightning`
    - **Repository**: `lightninglabs/lnd:v0.19.2-beta`
-   - **Port Mappings**: `3000:3000`, `9735:9735`, `8080:8080`
+   - **Port Mappings**: `3002:3000`, `9735:9735`, `8080:8080`
    - **Volumes**: `/mnt/user/appdata/umbrel-lightning:/home/lightning/.lightning`
    - **Environment Variables**:
      - `LIGHTNING_NETWORK=bitcoin`
@@ -222,7 +223,7 @@ For advanced users who want full control over container configuration:
    **Mempool**:
    - **Name**: `umbrel-mempool`
    - **Repository**: `mempool/backend:v3.2.1`
-   - **Port Mappings**: `3000:3000`, `8999:8999`
+   - **Port Mappings**: `3003:3000`, `8999:8999`
    - **Volumes**: `/mnt/user/appdata/umbrel-mempool:/app/mempool`
    - **Environment Variables**:
      - `MEMPOOL_NETWORK=mainnet`
@@ -270,7 +271,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 |---------|-------|
 | **Name** | `umbrel-bitcoin` |
 | **Repository** | `ghcr.io/getumbrel/umbrel-bitcoin:v1.0.3-core.v29.0` |
-| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333` |
+| **Ports** | `8332:8332`, `8333:8333`, `18332:18332`, `18333:18333`, `3000:3000` |
 | **Volume** | `/mnt/user/appdata/umbrel-bitcoin:/data` |
 | **Network** | Bridge |
 | **Note** | Official Umbrel Bitcoin container |
@@ -280,7 +281,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 |---------|-------|
 | **Name** | `umbrel-electrs` |
 | **Repository** | `getumbrel/electrs:v0.10.9` |
-| **Ports** | `3000:3000`, `50001:50001`, `50002:50002`, `4224:4224` |
+| **Ports** | `3001:3000`, `50001:50001`, `50002:50002`, `4224:4224` |
 | **Volume** | `/mnt/user/appdata/umbrel-electrs:/home/electrs/.electrs` |
 | **Network** | Bridge |
 
@@ -311,7 +312,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 | **Volume** | `/mnt/user/appdata/umbrel-monero:/home/monero/.bitmonero` |
 | **Network** | Bridge |
 
-**Note**: Port conflicts are resolved by using different host ports (3001, 3002) while keeping container ports the same. See the Docker Tab section above for detailed installation instructions.
+**Note**: Port conflicts are resolved by using different host ports (3000, 3001, 3002, 3003) while keeping container ports the same. Each app has a unique web UI port. See the Docker Tab section above for detailed installation instructions.
 
 ## Architecture
 

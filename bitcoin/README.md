@@ -90,21 +90,17 @@ The app stores Bitcoin blockchain data in `/mnt/user/appdata/umbrel-bitcoin` by 
 
 
 
-- **Network Privacy**: All Bitcoin traffic can be routed through Tor
 
-#### I2P Integration
-- **SAM Protocol**: Available on port 7656
-- **Network Privacy**: Alternative privacy network for Bitcoin connections
-- **Hidden Services**: I2P hidden service support for additional privacy
-
-#### Configuration
-Tor and I2P are automatically configured and started with the Bitcoin node. The services run in separate containers and are managed automatically.
 
 ## Usage
 
 ### Accessing the Node
 
-- **WebUI**: http://[YOUR_SERVER_IP]:8332
+- **WebUI**: http://[YOUR_SERVER_IP]:3000
+  - **Dashboard**: Real-time node statistics and network information
+  - **Peers**: View and manage connected peers
+  - **Settings**: Configure Bitcoin Core parameters
+  - **Configuration Editor**: Advanced users can edit bitcoin.conf directly
 - **RPC Access**: Use Bitcoin Core RPC commands
 - **Logs**: View container logs in Unraid Docker tab
 

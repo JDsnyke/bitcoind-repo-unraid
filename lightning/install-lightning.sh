@@ -181,7 +181,7 @@ start_container() {
     docker run -d \
         --name "$CONTAINER_NAME" \
         --restart unless-stopped \
-        -p 3000:3000 \
+        -p 3002:3000 \
         -p 9735:9735 \
         -p 8080:8080 \
         -v "$DATA_DIR:/home/lightning/.lightning" \
@@ -232,7 +232,7 @@ display_next_steps() {
     echo
     print_status "Next steps:"
     echo "1. Wait for Lightning node to fully sync (this may take some time)"
-    echo "2. Access the web interface: http://your_server_ip:3000"
+    echo "2. Access the web interface: http://your_server_ip:3002"
     echo "3. Access the REST API: http://your_server_ip:8080"
     echo "4. Connect Lightning wallets to: your_server_ip:9735"
     echo

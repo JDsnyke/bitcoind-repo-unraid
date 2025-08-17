@@ -5,7 +5,7 @@ services:
     build: .
     container_name: umbrel-mempool
     ports:
-      - "3000:3000"  # Web interface
+      - "3003:3000"  # Web interface
       - "8999:8999"  # REST API
     environment:
       - MEMPOOL_NETWORK=mainnet

@@ -5,22 +5,22 @@
   <Registry>https://github.com/getumbrel/umbrel-apps/tree/master/bitcoin</Registry>
   <BaseImage>ubuntu:22.04</BaseImage>
   <Icon>https://raw.githubusercontent.com/getumbrel/umbrel-apps/master/bitcoin/icon.png</Icon>
-  <WebUI>http://[IP]:[PORT:8332]</WebUI>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/getumbrel/umbrel-apps/issues</Support>
   <Project>https://github.com/getumbrel/umbrel-apps</Project>
-  <Overview>Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment. It provides a full Bitcoin node with RPC access, block validation capabilities, and enhanced performance optimization.</Overview>
+  <Overview>Umbrel Bitcoin is a Bitcoin Core node packaged for easy deployment. It provides a full Bitcoin node with RPC access, block validation capabilities, and a web-based management interface.</Overview>
   <Category>Blockchain</Category>
   <Description>Umbrel Bitcoin is a Bitcoin Core node that allows you to run your own Bitcoin node. This provides you with:
 
 - Full Bitcoin blockchain validation
 - RPC access for Bitcoin applications
-- Enhanced privacy and security with optional Tor/I2P
+- Web-based management interface
 - Support for the Bitcoin network
 - Integration with Umbrel Electrs for wallet connectivity
 
-The app runs Bitcoin Core in a Docker container with optimized settings for home servers. Install this first before installing the Umbrel Electrs app.</Description>
+The app runs Bitcoin Core in a Docker container with optimized settings for home servers and includes a web UI for monitoring and configuration. Install this first before installing the Umbrel Electrs app.</Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>
@@ -42,6 +42,11 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Port>
         <HostPort>18333</HostPort>
         <ContainerPort>18333</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>3000</HostPort>
+        <ContainerPort>3000</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
     </Publish>
@@ -164,7 +169,7 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
     </Label>
     <Label>
       <Key>com.unraid.docker.webui</Key>
-      <Value>http://[IP]:[PORT:8332]</Value>
+      <Value>http://[IP]:[PORT:3000]</Value>
     </Label>
     <Label>
       <Key>com.unraid.docker.icon</Key>

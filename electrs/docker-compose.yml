@@ -6,7 +6,7 @@ services:
     container_name: umbrel-electrs
     restart: unless-stopped
     ports:
-      - "3000:3000"    # HTTP API
+      - "3001:3000"    # HTTP API
       - "50001:50001"  # Electrum RPC
       - "50002:50002"  # Electrum Index RPC
       - "4224:4224"    # Prometheus monitoring
