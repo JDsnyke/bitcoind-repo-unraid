@@ -83,7 +83,7 @@ sudo ./install-mempool.sh
 | Variable | Default | Description | Must Match Bitcoin Node |
 |----------|---------|-------------|-------------------------|
 | `MEMPOOL_BITCOIN_USERNAME` | umbrel | Bitcoin Core RPC username | ✅ Yes |
-| `MEMPOOL_BITCOIN_PASSWORD` | changeme | Bitcoin Core RPC password | ✅ Yes |
+| `MEMPOOL_BITCOIN_PASSWORD` | moneyprintergobrrr | Bitcoin Core RPC password | ✅ Yes |
 | `MEMPOOL_BITCOIN_HOST` | umbrel-bitcoin | Bitcoin Core RPC hostname | ✅ Yes |
 | `MEMPOOL_BITCOIN_PORT` | 8332 | Bitcoin Core RPC port | ✅ Yes |
 
@@ -95,7 +95,7 @@ sudo ./install-mempool.sh
 | `MEMPOOL_BITCOIN_HOST` | umbrel-bitcoin | Bitcoin Core hostname |
 | `MEMPOOL_BITCOIN_PORT` | 8332 | Bitcoin Core RPC port |
 | `MEMPOOL_BITCOIN_USERNAME` | umbrel | Bitcoin Core RPC username |
-| `MEMPOOL_BITCOIN_PASSWORD` | changeme | Bitcoin Core RPC password |
+| `MEMPOOL_BITCOIN_PASSWORD` | moneyprintergobrrr | Bitcoin Core RPC password |
 | `MEMPOOL_BITCOIN_P2P_HOST` | umbrel-bitcoin | Bitcoin Core P2P hostname |
 | `MEMPOOL_BITCOIN_P2P_PORT` | 8333 | Bitcoin Core P2P port |
 | `MEMPOOL_BITCOIN_DATA_DIR` | /mnt/user/appdata/umbrel-bitcoin/.bitcoin | Bitcoin data directory |
@@ -103,7 +103,7 @@ sudo ./install-mempool.sh
 | `MEMPOOL_MYSQL_PORT` | 3306 | MySQL database port |
 | `MEMPOOL_MYSQL_DATABASE` | mempool | MySQL database name |
 | `MEMPOOL_MYSQL_USERNAME` | mempool | MySQL database username |
-| `MEMPOOL_MYSQL_PASSWORD` | changeme | MySQL database password |
+| `MEMPOOL_MYSQL_PASSWORD` | moneyprintergobrrr | MySQL database password |
 | `MEMPOOL_HTTP_PORT` | 3000 | HTTP web interface port |
 | `MEMPOOL_API_PORT` | 8999 | API server port |
 | `MEMPOOL_ENABLE_ELECTRS` | true | Enable Electrs integration |
@@ -114,7 +114,7 @@ sudo ./install-mempool.sh
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| 3000 | TCP | Web interface |
+| 3003 | TCP | Web interface (external) |
 | 8999 | TCP | REST API |
 
 ### Storage

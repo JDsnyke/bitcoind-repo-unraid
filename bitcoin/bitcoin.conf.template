@@ -45,6 +45,14 @@ debug=rpc
 debug=net
 logips=1
 
+# Privacy Configuration (Tor and I2P)
+proxy=172.20.0.2:9050
+onion=172.20.0.2:9050
+torcontrol=172.20.0.2:9051
+torpassword=moneyprintergobrrr
+i2psam=172.20.0.3:7656
+listenonion=1
+
 # Security Configuration
 # rpcbind=127.0.0.1  # Commented out to allow container access
 # rpcallowip=127.0.0.1  # Commented out to allow container access

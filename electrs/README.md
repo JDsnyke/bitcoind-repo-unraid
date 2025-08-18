@@ -34,6 +34,7 @@ Umbrel Electrs is a fast, lightweight Bitcoin Electrum server implementation wri
 - **Lightweight**: Efficient resource usage compared to traditional Electrum servers
 - **Multiple Interfaces**: HTTP API, Electrum RPC, and Prometheus monitoring
 - **Index-based Queries**: Fast transaction and address lookups
+- **Privacy Support**: Tor integration for enhanced anonymity
 - **Easy Integration**: Simple setup with Bitcoin Core nodes
 
 ## Installation
@@ -71,7 +72,7 @@ cd ../electrs
 | Variable | Default | Description | Must Match Bitcoin Node |
 |----------|---------|-------------|-------------------------|
 | `ELECTRS_DAEMON_RPC_USER` | umbrel | Bitcoin Core RPC username | ✅ Yes |
-| `ELECTRS_DAEMON_RPC_PASS` | changeme | Bitcoin Core RPC password | ✅ Yes |
+| `ELECTRS_DAEMON_RPC_PASS` | moneyprintergobrrr | Bitcoin Core RPC password | ✅ Yes |
 | `ELECTRS_DAEMON_RPC_ADDR` | bitcoin:8332 | Bitcoin Core RPC address | ✅ Yes |
 | `ELECTRS_DAEMON_P2P_ADDR` | bitcoin:8333 | Bitcoin Core P2P address | ✅ Yes |
 
@@ -82,7 +83,7 @@ cd ../electrs
 | `ELECTRS_NETWORK` | bitcoin | Bitcoin network (bitcoin, testnet, or regtest) |
 | `ELECTRS_DAEMON_RPC_ADDR` | bitcoin:8332 | Bitcoin Core RPC address (hostname:port) |
 | `ELECTRS_DAEMON_RPC_USER` | umbrel | Bitcoin Core RPC username |
-| `ELECTRS_DAEMON_RPC_PASS` | changeme | Bitcoin Core RPC password (change this!) |
+| `ELECTRS_DAEMON_RPC_PASS` | moneyprintergobrrr | Bitcoin Core RPC password (change this!) |
 | `ELECTRS_DAEMON_P2P_ADDR` | bitcoin:8333 | Bitcoin Core P2P address (hostname:port) |
 | `ELECTRS_ELECTRUM_RPC_ADDR` | 0.0.0.0:50001 | Electrum RPC bind address |
 | `ELECTRS_ELECTRUM_RPC_ADDR_INDEX` | 0.0.0.0:50002 | Electrum index RPC bind address |
@@ -92,12 +93,14 @@ cd ../electrs
 | `ELECTRS_DB_DIR` | /home/electrs/.electrs/db | Database directory path |
 | `ELECTRS_INDEX_BATCH_SIZE` | 10 | Index batch size for processing |
 | `ELECTRS_INDEX_LIMIT` | 1000 | Index limit for queries |
+| `TOR_PROXY_IP` | umbrel-tor | Tor proxy hostname |
+| `TOR_PROXY_PORT` | 9050 | Tor SOCKS proxy port |
 
 ### Ports
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| 3000 | TCP | HTTP API interface |
+| 3001 | TCP | HTTP API interface (Web UI) |
 | 50001 | TCP | Electrum RPC protocol |
 | 50002 | TCP | Electrum index RPC protocol |
 | 4224 | TCP | Prometheus metrics (optional) |

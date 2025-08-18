@@ -161,6 +161,42 @@ The app runs Bitcoin Core in a Docker container with optimized settings for home
       <Mode>rw</Mode>
       <Description>Extra arguments to pass to bitcoind (required for JoinMarket compatibility)</Description>
     </Variable>
+    <Variable>
+      <Name>TOR_HOST</Name>
+      <Value>umbrel-tor</Value>
+      <Mode>rw</Mode>
+      <Description>Tor daemon container hostname for proxy and onion routing</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_SOCKS_PORT</Name>
+      <Value>9050</Value>
+      <Mode>rw</Mode>
+      <Description>Tor SOCKS proxy port for Bitcoin connections</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_CONTROL_PORT</Name>
+      <Value>9051</Value>
+      <Mode>rw</Mode>
+      <Description>Tor control port for Bitcoin onion service management</Description>
+    </Variable>
+    <Variable>
+      <Name>TOR_CONTROL_PASSWORD</Name>
+      <Value>moneyprintergobrrr</Value>
+      <Mode>rw</Mode>
+      <Description>Tor control password for authentication</Description>
+    </Variable>
+    <Variable>
+      <Name>I2P_HOST</Name>
+      <Value>umbrel-i2pd</Value>
+      <Mode>rw</Mode>
+      <Description>I2P daemon container hostname for SAM connections</Description>
+    </Variable>
+    <Variable>
+      <Name>I2P_SAM_PORT</Name>
+      <Value>7656</Value>
+      <Mode>rw</Mode>
+      <Description>I2P SAM port for Bitcoin I2P connections</Description>
+    </Variable>
   </Environment>
   <Labels>
     <Label>

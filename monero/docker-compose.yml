@@ -30,6 +30,13 @@ services:
       - MONERO_OFFLINE=0
       - MONERO_DATA_DIR=/home/monero/.bitmonero
       - MONERO_LOG_LEVEL=1
+      # Tor and I2P Configuration
+      - TOR_PROXY_IP=umbrel-tor
+      - TOR_PROXY_PORT=9050
+      - TOR_PROXY_CONTROL_PORT=9051
+      - TOR_PROXY_CONTROL_PASSWORD=moneyprintergobrrr
+      - I2P_DAEMON_IP=umbrel-i2pd
+      - I2P_DAEMON_PORT=7656
     volumes:
       - ./data:/home/monero/.bitmonero
       # Unraid-specific volume mapping (commented out for local testing)
@@ -37,12 +44,44 @@ services:
     networks:
       - monero-network
     restart: unless-stopped
+    depends_on:
+      - umbrel-tor
+      - umbrel-i2pd
     user: "1000:1000"  # nobody:users equivalent for Unraid
     # Alternative for Unraid: user: "99:100"
+
+  umbrel-tor:
+    image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
+    container_name: umbrel-monero-tor
+    user: "1000:1000"
+    restart: on-failure
+    volumes:
+      - ./torrc:/etc/tor/torrc:ro
+      - ./tor-data:/data
+    environment:
+      HOME: "/tmp"
+    networks:
+      monero-network:
+        ipv4_address: 172.23.0.2
+
+  umbrel-i2pd:
+    image: purplei2p/i2pd:release-2.44.0@sha256:d154a599793c393cf9c91f8549ba7ece0bb40e5728e1813aa6dd4c210aa606f6
+    container_name: umbrel-monero-i2pd
+    user: "root"
+    command: --sam.enabled=true --sam.address=0.0.0.0 --sam.port=7656 --loglevel=error
+    restart: on-failure
+    volumes:
+      - ./i2pd-data:/home/i2pd/data
+    networks:
+      monero-network:
+        ipv4_address: 172.23.0.3
 
 networks:
   monero-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
 
 volumes:
   data:

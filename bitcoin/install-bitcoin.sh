@@ -132,6 +132,21 @@ docker run -d \
     -e BITCOIN_TXINDEX=1 \
     -e BITCOIN_BLOCKFILTERINDEX=1 \
     -e BITCOIN_PRUNING=0 \
+    -e BITCOIN_DBCACHE=450 \
+    -e BITCOIN_MAXMEMPOOL=300 \
+    -e BITCOIN_MAXCONNECTIONS=125 \
+    -e BITCOIN_MAXUPLOADTARGET=5000 \
+    -e BITCOIN_COINSTATSINDEX=1 \
+    -e BITCOIN_MEMPOOLEXPIRY=336 \
+    -e BITCOIN_PAR=0 \
+    -e BITCOIND_EXTRA_ARGS="-deprecatedrpc=create_bdb" \
+    # Tor and I2P Configuration
+    -e TOR_HOST=umbrel-tor \
+    -e TOR_SOCKS_PORT=9050 \
+    -e TOR_CONTROL_PORT=9051 \
+    -e TOR_CONTROL_PASSWORD=moneyprintergobrrr \
+    -e I2P_HOST=umbrel-i2pd \
+    -e I2P_SAM_PORT=7656 \
     "${IMAGE_NAME}"
 
 # Wait for container to start

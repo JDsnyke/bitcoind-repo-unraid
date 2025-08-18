@@ -10,6 +10,7 @@ Umbrel Monero is a Monero (XMR) node implementation that provides privacy-focuse
 
 - **Full Monero Node**: Complete Monero blockchain validation
 - **Privacy-Focused**: Built-in privacy and anonymity features
+- **Enhanced Privacy**: Full Tor and I2P network integration
 - **RPC Access**: Programmatic access to Monero functionality
 - **Wallet Support**: Optional wallet functionality
 - **Multiple Networks**: Support for mainnet, testnet, and stagenet
@@ -65,7 +66,7 @@ sudo ./install-monero.sh
 | `MONERO_ZMQ_RPC_BIND_PORT` | 18091 | ZMQ RPC bind port |
 | `MONERO_ZMQ_PUB_BIND_IP` | 0.0.0.0 | ZMQ PUB bind IP address |
 | `MONERO_ZMQ_PUB_BIND_PORT` | 18092 | ZMQ PUB bind port |
-| `MONERO_RPC_LOGIN` | monero:changeme | RPC login credentials (username:password) |
+| `MONERO_RPC_LOGIN` | monero:moneyprintergobrrr | RPC login credentials (username:password) |
 | `MONERO_RESTRICTED_RPC` | 1 | Restrict RPC access (1=enabled, 0=disabled) |
 | `MONERO_DISABLE_RPC_LOGIN` | 0 | Disable RPC login requirement |
 | `MONERO_SYNC_MODE` | fast | Sync mode (fast, safe, or unsafe) |
@@ -76,6 +77,12 @@ sudo ./install-monero.sh
 | `MONERO_OFFLINE` | 0 | Offline mode |
 | `MONERO_DATA_DIR` | /home/monero/.bitmonero | Monero data directory |
 | `MONERO_LOG_LEVEL` | 1 | Log level (0-4, higher = more verbose) |
+| `TOR_PROXY_IP` | umbrel-tor | Tor proxy hostname |
+| `TOR_PROXY_PORT` | 9050 | Tor SOCKS proxy port |
+| `TOR_PROXY_CONTROL_PORT` | 9051 | Tor control port |
+| `TOR_PROXY_CONTROL_PASSWORD` | moneyprintergobrrr | Tor control password |
+| `I2P_DAEMON_IP` | umbrel-i2pd | I2P daemon hostname |
+| `I2P_DAEMON_PORT` | 7656 | I2P SAM port |
 
 ### Ports
 
@@ -93,6 +100,21 @@ The app stores Monero blockchain data in `/mnt/user/appdata/umbrel-monero` by de
 - Configuration files
 - Logs
 - Wallet files (if enabled)
+- Tor configuration and data
+- I2P configuration and data
+
+### Privacy Services
+
+#### Tor Integration
+- **SOCKS Proxy**: Available at `umbrel-tor:9050`
+- **Control Interface**: Available at `umbrel-tor:9051`
+- **Hidden Services**: RPC and P2P accessible via .onion addresses
+- **Authentication**: Control password required for hidden service management
+
+#### I2P Integration
+- **SAM Interface**: Available at `umbrel-i2pd:7656`
+- **Network Support**: Full I2P network integration
+- **Enhanced Privacy**: Traffic routing through I2P network
 
 ## Usage
 

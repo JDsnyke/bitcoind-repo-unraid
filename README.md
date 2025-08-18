@@ -4,18 +4,19 @@ This repository contains Community Application templates for running multiple Um
 
 ## Overview
 
-This repository provides five complementary blockchain applications with enhanced privacy and security:
+This repository provides five complementary blockchain applications with full privacy and security features:
 
 **🔒 Official Containers**: All apps use official Umbrel container images for maximum compatibility
+**🔐 Privacy Services**: Tor and I2P support for enhanced anonymity and privacy
 **🌐 Multiple Networks**: Support for mainnet, testnet, and regtest across all Bitcoin-based apps
 **📊 Real-time Monitoring**: Built-in monitoring and analytics for all applications
 **🔧 Easy Management**: Simple installation and configuration through Unraid Community Applications
 
-1. **Umbrel Bitcoin** - A full Bitcoin Core node using official Umbrel container
-2. **Umbrel Electrs** - A fast Electrum server implementation for wallet connectivity
-3. **Umbrel Lightning** - A Lightning Network node for fast Bitcoin transactions
+1. **Umbrel Bitcoin** - A full Bitcoin Core node with Tor and I2P privacy services
+2. **Umbrel Electrs** - A fast Electrum server with Tor privacy support
+3. **Umbrel Lightning** - A Lightning Network node with Tor privacy support
 4. **Umbrel Mempool** - A Bitcoin mempool explorer for transaction monitoring
-5. **Umbrel Monero** - A Monero (XMR) node for privacy-focused cryptocurrency
+5. **Umbrel Monero** - A Monero (XMR) node with Tor and I2P privacy services
 
 ## ⚠️ Unraid-Specific Considerations
 
@@ -35,23 +36,25 @@ bitcoind-repo-unraid/
 │   ├── umbrel-bitcoin.xml     # Community Application template
 │   ├── README.md              # Bitcoin app documentation
 │   ├── Dockerfile             # Container definition
-│   ├── docker-compose.yml     # Local testing setup
+│   ├── docker-compose.yml     # Local testing setup with Tor/I2P
 │   ├── bitcoin.conf.template  # Configuration template
-│   ├── bitcoin.conf.template  # Configuration template
+│   ├── torrc                  # Tor configuration
 │   └── install-bitcoin.sh     # Installation script (requires root)
 ├── electrs/                   # Umbrel Electrs app
 │   ├── umbrel-electrs.xml    # Community Application template
 │   ├── README.md             # Electrs app documentation
 │   ├── Dockerfile            # Container definition
-│   ├── docker-compose.yml    # Local testing setup
+│   ├── docker-compose.yml    # Local testing setup with Tor
 │   ├── electrs.conf.template # Configuration template
+│   ├── torrc                 # Tor configuration
 │   └── install-electrs.sh    # Installation script (requires root)
 ├── lightning/                 # Umbrel Lightning app
 │   ├── umbrel-lightning.xml  # Community Application template
 │   ├── README.md             # Lightning app documentation
 │   ├── Dockerfile            # Container definition
-│   ├── docker-compose.yml    # Local testing setup
+│   ├── docker-compose.yml    # Local testing setup with Tor
 │   ├── lightning.conf.template # Configuration template
+│   ├── torrc                 # Tor configuration
 │   └── install-lightning.sh  # Installation script (requires root)
 ├── mempool/                  # Umbrel Mempool app
 │   ├── umbrel-mempool.xml   # Community Application template
@@ -64,8 +67,9 @@ bitcoind-repo-unraid/
 │   ├── umbrel-monero.xml    # Community Application template
 │   ├── README.md            # Monero app documentation
 │   ├── Dockerfile           # Container definition
-│   ├── docker-compose.yml   # Local testing setup
+│   ├── docker-compose.yml   # Local testing setup with Tor/I2P
 │   ├── monero.conf.template # Configuration template
+│   ├── torrc                # Tor configuration
 │   └── install-monero.sh    # Installation script (requires root)
 ├── README.md                 # This file - main documentation
 ├── LICENSE                   # MIT license
@@ -79,14 +83,43 @@ The apps store data in the Unraid `appdata` share:
 /mnt/user/appdata/
 ├── umbrel-bitcoin/          # Bitcoin blockchain data
 │   ├── .bitcoin/            # Bitcoin Core data
-│   └── bitcoin.conf         # Bitcoin configuration
+│   ├── bitcoin.conf         # Bitcoin configuration
+│   ├── tor-data/            # Tor hidden services
+│   └── i2pd-data/           # I2P daemon data
 ├── umbrel-electrs/          # Electrs database and config
+│   ├── .electrs/            # Electrs database
+│   └── tor-data/            # Tor hidden services
 ├── umbrel-lightning/        # Lightning data
+│   ├── .lightning/          # Lightning node data
+│   └── tor-data/            # Tor hidden services
 ├── umbrel-mempool/          # Mempool database
 └── umbrel-monero/           # Monero blockchain data
+    ├── .bitmonero/          # Monero blockchain data
+    ├── tor-data/            # Tor hidden services
+    └── i2pd-data/           # I2P daemon data
 ```
 
 **Note**: Each app includes a `docker-compose.yml` file for local testing and development. These files are **not** for production Unraid use - they're designed for developers to test the apps locally before creating Community Application templates.
+
+## 🔐 Privacy Services
+
+This repository includes comprehensive privacy services for enhanced anonymity and security:
+
+### Tor Support
+- **Bitcoin**: Full Tor integration with hidden services for P2P and RPC
+- **Electrs**: Tor proxy support for HTTP API and Electrum RPC
+- **Lightning**: Tor integration for P2P and REST API
+- **Monero**: Tor hidden services for RPC and P2P endpoints
+
+### I2P Support
+- **Bitcoin**: Full I2P network integration via SAM interface
+- **Monero**: Complete I2P network support for enhanced privacy
+
+### Privacy Features
+- **Hidden Services**: Each app accessible via .onion addresses
+- **Network Isolation**: Dedicated subnets for privacy services
+- **Secure Authentication**: Tor control passwords and I2P SAM configuration
+- **Proxy Routing**: All traffic can route through privacy networks
 
 Community Application templates are stored in:
 ```
@@ -312,7 +345,7 @@ For users installing through the **Docker** tab, here are the key settings for e
 | **Volume** | `/mnt/user/appdata/umbrel-monero:/home/monero/.bitmonero` |
 | **Network** | Bridge |
 
-**Note**: Port conflicts are resolved by using different host ports (3000, 3001, 3002, 3003) while keeping container ports the same. Each app has a unique web UI port. See the Docker Tab section above for detailed installation instructions.
+**Note**: Port conflicts are resolved by using different host ports (3000, 3001, 3002, 3003) while keeping container ports the same. Each app has a unique web UI port. Bitcoin includes Tor and I2P privacy services. See the Docker Tab section above for detailed installation instructions.
 
 ## Architecture
 

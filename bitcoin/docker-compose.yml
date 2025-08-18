@@ -33,10 +33,49 @@ services:
       - BITCOIN_MEMPOOLEXPIRY=336
       - BITCOIN_PAR=0
       - BITCOIND_EXTRA_ARGS=-deprecatedrpc=create_bdb
+      # Tor and I2P Configuration
+      - TOR_HOST=umbrel-tor
+      - TOR_SOCKS_PORT=9050
+      - TOR_CONTROL_PORT=9051
+      - TOR_CONTROL_PASSWORD=moneyprintergobrrr
+      - I2P_HOST=umbrel-i2pd
+      - I2P_SAM_PORT=7656
     user: "1000:1000"  # Unraid nobody:users equivalent
     # Alternative user mapping for Unraid
     # user: "99:100"  # nobody:users on Unraid
+    depends_on:
+      - umbrel-tor
+      - umbrel-i2pd
+
+  umbrel-tor:
+    image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
+    container_name: umbrel-tor
+    user: "1000:1000"
+    restart: on-failure
+    volumes:
+      - ./torrc:/etc/tor/torrc:ro
+      - ./tor-data:/data
+    environment:
+      HOME: "/tmp"
+    networks:
+      default:
+        ipv4_address: 172.20.0.2
+
+  umbrel-i2pd:
+    image: purplei2p/i2pd:release-2.44.0@sha256:d154a599793c393cf9c91f8549ba7ece0bb40e5728e1813aa6dd4c210aa606f6
+    container_name: umbrel-i2pd
+    user: "root"
+    command: --sam.enabled=true --sam.address=0.0.0.0 --sam.port=7656 --loglevel=error
+    restart: on-failure
+    volumes:
+      - ./i2pd-data:/home/i2pd/data
+    networks:
+      default:
+        ipv4_address: 172.20.0.3
 
 networks:
   default:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

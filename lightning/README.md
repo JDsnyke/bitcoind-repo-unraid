@@ -16,6 +16,7 @@ Umbrel Lightning is a Lightning Network node implementation that provides fast, 
 - **Payment Channels**: Open and manage payment channels
 - **Fast Transactions**: Sub-second Bitcoin payments
 - **Low Fees**: Minimal transaction costs
+- **Privacy Support**: Tor integration for enhanced anonymity
 - **Web Interface**: User-friendly web UI for Lightning operations
 - **REST API**: Programmatic access to Lightning functionality
 - **Channel Management**: Monitor and manage payment channels
@@ -72,7 +73,7 @@ sudo ./install-lightning.sh
 | Variable | Default | Description | Must Match Bitcoin Node |
 |----------|---------|-------------|-------------------------|
 | `LIGHTNING_BITCOIN_RPC_USER` | umbrel | Bitcoin Core RPC username | ✅ Yes |
-| `LIGHTNING_BITCOIN_RPC_PASSWORD` | changeme | Bitcoin Core RPC password | ✅ Yes |
+| `LIGHTNING_BITCOIN_RPC_PASSWORD` | moneyprintergobrrr | Bitcoin Core RPC password | ✅ Yes |
 | `LIGHTNING_BITCOIN_RPC_HOST` | umbrel-bitcoin | Bitcoin Core RPC hostname | ✅ Yes |
 | `LIGHTNING_BITCOIN_RPC_PORT` | 8332 | Bitcoin Core RPC port | ✅ Yes |
 
@@ -84,20 +85,22 @@ sudo ./install-lightning.sh
 | `LIGHTNING_BITCOIN_RPC_HOST` | umbrel-bitcoin | Bitcoin Core RPC hostname |
 | `LIGHTNING_BITCOIN_RPC_PORT` | 8332 | Bitcoin Core RPC port |
 | `LIGHTNING_BITCOIN_RPC_USER` | umbrel | Bitcoin Core RPC username |
-| `LIGHTNING_BITCOIN_RPC_PASSWORD` | changeme | Bitcoin Core RPC password |
+| `LIGHTNING_BITCOIN_RPC_PASSWORD` | moneyprintergobrrr | Bitcoin Core RPC password |
 | `LIGHTNING_BITCOIN_RPC_PROTOCOL` | http | Bitcoin Core RPC protocol |
 | `LIGHTNING_ALIAS` | Umbrel Lightning | Lightning node alias |
 | `LIGHTNING_COLOR` | 3399FF | Lightning node color (hex) |
-| `LIGHTNING_WEB_PORT` | 3000 | Web interface port |
+| `LIGHTNING_WEB_PORT` | 3000 | Web interface port (internal) |
 | `LIGHTNING_P2P_PORT` | 9735 | Lightning P2P port |
 | `LIGHTNING_REST_PORT` | 8080 | REST API port |
 | `LIGHTNING_LOG_LEVEL` | info | Logging level |
+| `TOR_PROXY_IP` | umbrel-tor | Tor proxy hostname |
+| `TOR_PROXY_PORT` | 9050 | Tor SOCKS proxy port |
 
 ### Ports
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| 3000 | TCP | Web interface |
+| 3002 | TCP | Web interface (external) |
 | 9735 | TCP | Lightning P2P protocol |
 | 8080 | TCP | REST API |
 

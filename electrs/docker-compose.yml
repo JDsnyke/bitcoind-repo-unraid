@@ -24,6 +24,9 @@ services:
       - ELECTRS_DB_DIR=/home/electrs/.electrs/db
       - ELECTRS_INDEX_BATCH_SIZE=10
       - ELECTRS_INDEX_LIMIT=1000
+      # Tor Configuration
+      - TOR_PROXY_IP=umbrel-tor
+      - TOR_PROXY_PORT=9050
     volumes:
       - ./data:/home/electrs/.electrs
       # Unraid-specific volume mapping (uncomment for production use)
@@ -32,6 +35,7 @@ services:
       - electrs-network
     depends_on:
       - umbrel-bitcoin  # Bitcoin container dependency
+      - umbrel-tor      # Tor daemon dependency
     user: "1000:1000"  # Unraid nobody:users equivalent
     # Alternative user mapping for Unraid
     # user: "99:100"  # nobody:users on Unraid
@@ -64,6 +68,23 @@ services:
     # Alternative user mapping for Unraid
     # user: "99:100"  # nobody:users on Unraid
 
+  umbrel-tor:
+    image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
+    container_name: umbrel-electrs-tor
+    user: "1000:1000"
+    restart: on-failure
+    volumes:
+      - ./torrc:/etc/tor/torrc:ro
+      - ./tor-data:/data
+    environment:
+      HOME: "/tmp"
+    networks:
+      electrs-network:
+        ipv4_address: 172.21.0.2
+
 networks:
   electrs-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

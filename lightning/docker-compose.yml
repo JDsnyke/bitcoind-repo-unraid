@@ -21,6 +21,9 @@ services:
       - LIGHTNING_P2P_PORT=9735
       - LIGHTNING_REST_PORT=8080
       - LIGHTNING_LOG_LEVEL=info
+      # Tor Configuration
+      - TOR_PROXY_IP=umbrel-tor
+      - TOR_PROXY_PORT=9050
     volumes:
       - ./data:/home/lightning/.lightning
       # Unraid-specific volume mapping (commented out for local testing)
@@ -29,6 +32,7 @@ services:
       - umbrel-network
     depends_on:
       - umbrel-bitcoin
+      - umbrel-tor      # Tor daemon dependency
     restart: unless-stopped
     user: "1000:1000"  # nobody:users equivalent for Unraid
     # Alternative for Unraid: user: "99:100"
@@ -62,9 +66,26 @@ services:
     user: "1000:1000"  # nobody:users equivalent for Unraid
     # Alternative for Unraid: user: "99:100"
 
+  umbrel-tor:
+    image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
+    container_name: umbrel-lightning-tor
+    user: "1000:1000"
+    restart: on-failure
+    volumes:
+      - ./torrc:/etc/tor/torrc:ro
+      - ./tor-data:/data
+    environment:
+      HOME: "/tmp"
+    networks:
+      umbrel-network:
+        ipv4_address: 172.22.0.2
+
 networks:
   umbrel-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
 
 volumes:
   data:
